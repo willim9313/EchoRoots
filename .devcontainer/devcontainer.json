@@ -1,0 +1,22 @@
+{
+    "name": "EchoRoots Development",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "python-dev",
+    "workspaceFolder": "/workspace",
+    "features": {
+        "ghcr.io/devcontainers/features/python:1": {
+            "version": "3.13"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.debugpy",
+                "charliermarsh.ruff"
+            ]
+        }
+    },
+    "forwardPorts": [7474, 7687, 6333, 6334],
+    "postCreateCommand": "uv sync"
+}

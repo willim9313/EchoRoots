@@ -1,0 +1,8 @@
+flowchart LR
+  RAW[d_raw] -->|W2/W3| NORM[d_norm]
+  RAW -->|W3 obs| S(S_staging_obs)
+  S -->|cluster| C[S_clusters]
+  C -->|propose| G[g_events]
+  NORM -->|refs| NEO[(Neo4j T/N)]
+  NORM -->|store| DDB[(DuckDB)]
+  S -->|emb| Q[(Qdrant)]
