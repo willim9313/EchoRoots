@@ -35,3 +35,23 @@ class ValueStatus(str, Enum):
     ACTIVE = "active"
     DEPRECATED = "deprecated"
     MERGED = "merged"
+
+class NormStatus(str, Enum):
+    """Normalization status for ItemNorm"""
+    OK = "ok"
+    PARTIAL = "partial"
+    FAILED = "failed"
+
+
+class ReviewStatus(str, Enum):
+    """Review status for outlier records"""
+    PENDING = "pending"
+    APPROVED = "approved"
+    REJECTED = "rejected"
+
+
+class SState(str, Enum):
+    """State for semantic clusters"""
+    STAGING = "STAGING"
+    HOT = "HOT"
+    ARCHIVE = "ARCHIVE"

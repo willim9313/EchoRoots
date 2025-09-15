@@ -4,6 +4,17 @@ from .enums import AttrType, Domain, CategoryStatus, AttributeStatus, ValueStatu
 from .taxonomy import Category, Attribute, AttributeValue, ValueMapping
 from .base import BaseModel
 
+from .data import (
+    GovernanceEvent,
+    ImpactedSet,
+    ItemNorm,
+    ItemRaw,
+    OutlierRecord,
+    SCluster,
+    SStagingObs,
+)
+from .enums import Domain, NormStatus, ReviewStatus, SState
+
 __all__ = [
     "AttrType",
     "Domain", 
@@ -15,4 +26,16 @@ __all__ = [
     "AttributeValue",
     "ValueMapping",
     "BaseModel",
+    # Data models
+    "ItemRaw",
+    "ItemNorm",
+    "OutlierRecord",
+    "SStagingObs",
+    "SCluster",
+    "GovernanceEvent",
+    "ImpactedSet",
+    # Additional enums
+    "NormStatus",
+    "ReviewStatus",
+    "SState"
 ]
