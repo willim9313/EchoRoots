@@ -4,7 +4,7 @@ CREATE TABLE d_raw (
   item_id TEXT PRIMARY KEY,
   domain TEXT, title TEXT, description TEXT,
   raw_category_path JSON, lang TEXT, source TEXT,
-  brand TEXT, price DOUBLE, specs JSON, text_tags JSON, text_uri TEXT,
+  specs JSON, tags JSON,
   created_at TIMESTAMP, updated_at TIMESTAMP
 );
 

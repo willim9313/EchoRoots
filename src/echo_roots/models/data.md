@@ -28,15 +28,7 @@
 * `raw_category_path: List[str]`
 * `lang: str?` — ISO (`"zh-TW"`, `"en"`)
 * `source: str?`
-* **product 專屬**:
-
-  * `brand: str?`
-  * `price: float?`
-  * `specs: Dict[str, Any]`
-* **knowledge\_base 專屬**:
-
-  * `text_tags: List[str]`
-  * `text_uri: str?`
+* `specs: Dict[str, Any]`
 * `created_at, updated_at: datetime`
 
 ### D\_norm (ItemNorm)

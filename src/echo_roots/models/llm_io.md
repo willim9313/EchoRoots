@@ -38,7 +38,8 @@
   "lang": "zh-TW|en",
   "title": "string",
   "description": "string|null",
-  "specs_or_tags": {"...": "..."},
+  "specs": {"...": "..."},
+  "tags": ["..."],
   "raw_category_path": ["..."],
   "context": {"...": "..."}
 }
@@ -145,7 +146,7 @@ LLM 輸出：
 
 ```json
 {
-  "source": "title|description|specs.storage|text_uri",
+  "source": "title|description|specs.storage",
   "span": [0, 5],
   "text": "天然鈦",
   "score": 0.92,

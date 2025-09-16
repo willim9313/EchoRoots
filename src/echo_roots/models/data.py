@@ -26,16 +26,8 @@ class ItemRaw(BaseModel):
     raw_category_path: List[str] = Field(default_factory=list)
     lang: Optional[str] = None  # ISO code like "zh-TW", "en"
     source: Optional[str] = None
-    
-    # Product-specific fields
-    brand: Optional[str] = None  # 應該要移除，包含在specs裡面，對應data.md也要修改
-    price: Optional[float] = None  # 建議移除，包含在specs裡面，對應data.md也要修改
     specs: Dict[str, Any] = Field(default_factory=dict)
-    
-    # Knowledge base-specific fields
-    text_tags: List[str] = Field(default_factory=list)  # 同上，應該要在specs裡面
-    text_uri: Optional[str] = None  # 同上，應該要在specs裡面
-
+    tags: List[str] = Field(default_factory=list)
     created_at: datetime = Field(default_factory=datetime.now)  # base.py已經有created_at欄位，這裡不需要再定義
     updated_at: datetime = Field(default_factory=datetime.now)  # base.py已經有updated_at欄位，這裡不需要再定義
 
@@ -49,9 +41,12 @@ class ItemRaw(BaseModel):
                 "raw_category_path": ["Electronics", "Phones", "Smartphones"],
                 "lang": "zh-TW",
                 "source": "apple_store",
-                "brand": "Apple",
-                "price": 39900.0,
-                "specs": {"color": "Natural Titanium", "storage": "256GB"}
+                "specs": {
+                    "brand": "Apple", 
+                    "price": 39900.0, 
+                    "color": "Natural Titanium", 
+                    "storage": "256GB"
+                }
             }
         }
 
