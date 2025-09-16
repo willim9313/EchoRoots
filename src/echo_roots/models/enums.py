@@ -36,6 +36,7 @@ class ValueStatus(str, Enum):
     DEPRECATED = "deprecated"
     MERGED = "merged"
 
+
 class NormStatus(str, Enum):
     """Normalization status for ItemNorm"""
     OK = "ok"
@@ -55,3 +56,24 @@ class SState(str, Enum):
     STAGING = "STAGING"
     HOT = "HOT"
     ARCHIVE = "ARCHIVE"
+
+
+# LLM-related enums
+class LLMTaskType(str, Enum):
+    """LLM task types."""
+    CATEGORY_CLASSIFICATION = "category_classification"
+    ATTRIBUTE_EXTRACTION = "attribute_extraction"
+
+
+class AttributeCardinality(str, Enum):
+    """Attribute cardinality for LLM tasks."""
+    SINGLE = "single"
+    MULTIPLE = "multiple"
+
+
+class ProcessingStatus(str, Enum):
+    """Processing status for LLM tasks."""
+    PENDING = "pending"
+    PROCESSING = "processing"
+    COMPLETED = "completed"
+    FAILED = "failed"

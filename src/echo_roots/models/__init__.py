@@ -13,7 +13,35 @@ from .data import (
     SCluster,
     SStagingObs,
 )
-from .enums import Domain, NormStatus, ReviewStatus, SState
+
+from .enums import (
+    Domain, 
+    NormStatus, 
+    ReviewStatus, 
+    SState,
+    LLMTaskType,
+    AttributeCardinality,
+    ProcessingStatus,
+)
+
+# Add LLM I/O models
+from .llm_io import (
+    LLMCommonInput,
+    Evidence,
+    CategoryOption,
+    CategoryClassificationInput,
+    CategoryClassificationOutput,
+    AttributeValueOption,
+    AttributeOption,
+    AttributeExtractionInput,
+    AttributeSelection,
+    AttributeExtractionOutput,
+    ResidualValue,
+    CategoryProcessingResult,
+    AttributeProcessingResult,
+    LLMBatchRequest,
+    LLMBatchResponse
+)
 
 __all__ = [
     "AttrType",
@@ -37,5 +65,24 @@ __all__ = [
     # Additional enums
     "NormStatus",
     "ReviewStatus",
-    "SState"
+    "SState",
+    # LLM I/O models
+    "LLMCommonInput",
+    "Evidence",
+    "CategoryOption",
+    "CategoryClassificationInput", 
+    "CategoryClassificationOutput",
+    "AttributeValueOption",
+    "AttributeOption",
+    "AttributeExtractionInput",
+    "AttributeSelection",
+    "AttributeExtractionOutput",
+    "ResidualValue",
+    "CategoryProcessingResult",
+    "AttributeProcessingResult",
+    "LLMBatchRequest",
+    "LLMBatchResponse",
+    "LLMTaskType",
+    "AttributeCardinality",
+    "ProcessingStatus"
 ]
