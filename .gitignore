@@ -93,14 +93,11 @@ cache/
 # ================================
 
 # Downloaded models (if stored locally)
-models/
 *.model
 *.pkl
 *.joblib
 
 # Large data files
-data/raw/
-data/processed/
 *.parquet
 *.csv.gz
 
