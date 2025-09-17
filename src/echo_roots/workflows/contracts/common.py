@@ -313,12 +313,114 @@ def merge_validation_results(results: List[ValidationResult]) -> ValidationResul
     return merged
 
 
-def create_workflow_result(workflow_id: str, 
-                          status: WorkflowStatus = WorkflowStatus.SUCCESS,
-                          message: str = "") -> WorkflowResult:
+def create_workflow_result(
+    workflow_id: str, 
+    status: WorkflowStatus = WorkflowStatus.SUCCESS,
+    message: str = ""
+) -> WorkflowResult:
     """建立工作流結果"""
     return WorkflowResult(
         status=status,
         workflow_id=workflow_id,
         message=message
     )
+
+#  workflow 2
+
+class GovernanceEventType(Enum):
+    """治理事件類型"""
+    SNAPSHOT_CREATE = "snapshot_create"
+    SNAPSHOT_RESTORE = "snapshot_restore"
+    BACKFILL_COMMIT = "backfill_commit"
+    DATA_QUALITY_CHECK = "data_quality_check"
+    SCHEMA_CHANGE = "schema_change"
+    WORKFLOW_START = "workflow_start"
+    WORKFLOW_COMPLETE = "workflow_complete"
+    WORKFLOW_FAILED = "workflow_failed"
+
+
+@dataclass
+class GovernanceEvent:
+    """治理事件"""
+    event_id: str
+    event_type: GovernanceEventType
+    workflow_id: str
+    domain: str
+    timestamp: datetime
+    event_data: Dict[str, Any] = field(default_factory=dict)
+    metadata: Dict[str, Any] = field(default_factory=dict)
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """轉換為字典格式"""
+        return {
+            "event_id": self.event_id,
+            "event_type": self.event_type.value,
+            "workflow_id": self.workflow_id,
+            "domain": self.domain,
+            "timestamp": self.timestamp.isoformat(),
+            "event_data": self.event_data,
+            "metadata": self.metadata
+        }
+
+
+@dataclass
+class DiffMetrics:
+    """差異指標"""
+    total_compared: int = 0
+    identical: int = 0
+    modified: int = 0
+    added: int = 0
+    removed: int = 0
+    
+    @property
+    def change_rate(self) -> float:
+        """變更率"""
+        if self.total_compared == 0:
+            return 0.0
+        return (self.modified + self.added + self.removed) / self.total_compared
+    
+    @property
+    def stability_rate(self) -> float:
+        """穩定率"""
+        if self.total_compared == 0:
+            return 1.0
+        return self.identical / self.total_compared
+
+
+# ...existing code...
+
+def create_governance_event(
+    event_type: GovernanceEventType,
+    workflow_id: str,
+    domain: str,
+    event_data: Dict[str, Any] = None,
+    metadata: Dict[str, Any] = None
+) -> GovernanceEvent:
+    """建立治理事件"""
+    return GovernanceEvent(
+        event_id=f"{workflow_id}_{event_type.value}_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
+        event_type=event_type,
+        workflow_id=workflow_id,
+        domain=domain,
+        timestamp=datetime.now(),
+        event_data=event_data or {},
+        metadata=metadata or {}
+    )
+
+
+def calculate_diff_metrics(old_data: List[Any], new_data: List[Any]) -> DiffMetrics:
+    """計算差異指標"""
+    # 這是一個簡化的實作，實際實作需要根據資料類型進行比較
+    metrics = DiffMetrics()
+    
+    old_set = set(str(item) for item in old_data)
+    new_set = set(str(item) for item in new_data)
+    
+    metrics.total_compared = len(old_set | new_set)
+    metrics.identical = len(old_set & new_set)
+    metrics.removed = len(old_set - new_set)
+    metrics.added = len(new_set - old_set)
+    
+    return metrics
+
+# workflow 2 end
