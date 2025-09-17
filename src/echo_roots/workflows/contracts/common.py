@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional, Union
+from pydantic import BaseModel, Field
 from datetime import datetime
 from enum import Enum
 from abc import ABC, abstractmethod
@@ -325,7 +326,7 @@ def create_workflow_result(
         message=message
     )
 
-#  workflow 2
+# workflow 2 append new 
 
 class GovernanceEventType(Enum):
     """治理事件類型"""
@@ -386,9 +387,6 @@ class DiffMetrics:
             return 1.0
         return self.identical / self.total_compared
 
-
-# ...existing code...
-
 def create_governance_event(
     event_type: GovernanceEventType,
     workflow_id: str,
@@ -423,4 +421,63 @@ def calculate_diff_metrics(old_data: List[Any], new_data: List[Any]) -> DiffMetr
     
     return metrics
 
-# workflow 2 end
+# end of workflow 2 related
+
+# workflow 3 append new 
+class EventType(str, Enum):
+    """Common event types across workflows"""
+    INGEST_COMMIT = "INGEST_COMMIT"
+    SNAPSHOT_CREATE = "SNAPSHOT_CREATE"
+    NORM_UPDATE = "NORM_UPDATE"
+    PROPOSAL_SUBMIT = "PROPOSAL_SUBMIT"
+    CLUSTER_UPDATE = "CLUSTER_UPDATE"
+
+class SnapshotType(str, Enum):
+    """Snapshot types"""
+    DATA = "D"
+    TAXONOMY = "T"
+    NORM = "N"
+    SEMANTIC = "S"
+
+class ProcessingResult(BaseModel):
+    """Common processing result structure"""
+    success: bool
+    processed_count: int
+    error_count: int
+    warnings: List[str] = Field(default_factory=list)
+    errors: List[str] = Field(default_factory=list)
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+
+class BatchKey(BaseModel):
+    """Common batch identification"""
+    domain: str
+    batch_id: str
+    timestamp: datetime
+    source_path: Optional[str] = None
+
+class VersionInfo(BaseModel):
+    """Version alignment information"""
+    norm_version: str
+    n_version: str
+    t_version: Optional[str] = None
+    
+    def is_aligned(self) -> bool:
+        """Check if norm and n versions are aligned"""
+        return self.norm_version == self.n_version
+
+class GovernanceEvent(BaseModel):
+    """Common governance event structure"""
+    event_type: EventType
+    event_id: str
+    batch_key: BatchKey
+    timestamp: datetime
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+
+class SnapshotRequest(BaseModel):
+    """Request to create a snapshot"""
+    snapshot_type: SnapshotType
+    reason: str
+    batch_key: BatchKey
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+
+# end of workflow 3 related
