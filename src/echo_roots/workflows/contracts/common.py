@@ -1,12 +1,12 @@
 from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional, Union
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from datetime import datetime
 from enum import Enum
 from abc import ABC, abstractmethod
 
 
-# 基礎枚舉類型
+# 基礎枚舉類型 (保持不變)
 class WorkflowStatus(Enum):
     """工作流狀態"""
     PENDING = "pending"
@@ -39,10 +39,10 @@ class DatabaseType(Enum):
     QDRANT = "qdrant"
 
 
-# 基礎資料結構
+# 內部計算層 - 使用 dataclass
 @dataclass
 class ValidationResult:
-    """驗證結果"""
+    """驗證結果 - 內部計算物件"""
     is_valid: bool
     errors: List[str] = field(default_factory=list)
     warnings: List[str] = field(default_factory=list)
@@ -64,38 +64,8 @@ class ValidationResult:
 
 
 @dataclass
-class BatchMetadata:
-    """批次元數據"""
-    event_id: str
-    batch_key: str
-    timestamp: datetime
-    source: DataSource
-    lang: Language
-    domain: str
-    version: str = "1.0"
-    metadata: Dict[str, Any] = field(default_factory=dict)
-    
-    def get_idempotency_key(self) -> str:
-        """生成冪等性檢查鍵"""
-        return f"{self.event_id}_{self.batch_key}_{self.domain}"
-    
-    def to_dict(self) -> Dict[str, Any]:
-        """轉換為字典格式"""
-        return {
-            "event_id": self.event_id,
-            "batch_key": self.batch_key,
-            "timestamp": self.timestamp.isoformat(),
-            "source": self.source.value,
-            "lang": self.lang.value,
-            "domain": self.domain,
-            "version": self.version,
-            "metadata": self.metadata
-        }
-
-
-@dataclass
 class WorkflowResult:
-    """工作流執行結果"""
+    """工作流執行結果 - 內部計算物件"""
     status: WorkflowStatus
     workflow_id: str
     message: str = ""
@@ -119,49 +89,8 @@ class WorkflowResult:
 
 
 @dataclass
-class DatabaseConnection:
-    """資料庫連接資訊"""
-    db_type: DatabaseType
-    host: str
-    port: int
-    database: str
-    username: Optional[str] = None
-    password: Optional[str] = None
-    connection_params: Dict[str, Any] = field(default_factory=dict)
-    
-    def get_connection_string(self) -> str:
-        """獲取連接字串"""
-        if self.db_type == DatabaseType.DUCKDB:
-            return self.database
-        elif self.db_type == DatabaseType.NEO4J:
-            return f"bolt://{self.host}:{self.port}"
-        else:
-            raise ValueError(f"Unsupported database type: {self.db_type}")
-
-
-@dataclass
-class SnapshotInfo:
-    """快照資訊"""
-    snapshot_id: str
-    name: str
-    timestamp: datetime
-    db_type: DatabaseType
-    metadata: Dict[str, Any] = field(default_factory=dict)
-    
-    def to_dict(self) -> Dict[str, Any]:
-        """轉換為字典格式"""
-        return {
-            "snapshot_id": self.snapshot_id,
-            "name": self.name,
-            "timestamp": self.timestamp.isoformat(),
-            "db_type": self.db_type.value,
-            "metadata": self.metadata
-        }
-
-
-@dataclass
 class SnapshotConfig:
-    """快照配置"""
+    """快照配置 - 內部配置物件"""
     create_before: bool = True
     create_after: bool = True
     snapshot_name_prefix: str = ""
@@ -177,7 +106,7 @@ class SnapshotConfig:
 
 @dataclass
 class DataQualityMetrics:
-    """資料品質指標"""
+    """資料品質指標 - 內部計算結果"""
     total_records: int = 0
     valid_records: int = 0
     invalid_records: int = 0
@@ -200,34 +129,196 @@ class DataQualityMetrics:
 
 
 @dataclass
-class WorkflowConfig:
-    """基礎工作流配置"""
+class DiffMetrics:
+    """差異指標 - 內部計算結果"""
+    total_compared: int = 0
+    identical: int = 0
+    modified: int = 0
+    added: int = 0
+    removed: int = 0
+    
+    @property
+    def change_rate(self) -> float:
+        """變更率"""
+        if self.total_compared == 0:
+            return 0.0
+        return (self.modified + self.added + self.removed) / self.total_compared
+    
+    @property
+    def stability_rate(self) -> float:
+        """穩定率"""
+        if self.total_compared == 0:
+            return 1.0
+        return self.identical / self.total_compared
+
+
+@dataclass
+class SupportMetrics:
+    """支援度指標 - 演算法計算結果"""
+    support_count: int
+    confidence_score: float
+    coverage_ratio: float
+    
+    def __post_init__(self):
+        """驗證數值範圍"""
+        if self.support_count < 0:
+            raise ValueError("support_count must be >= 0")
+        if not (0.0 <= self.confidence_score <= 1.0):
+            raise ValueError("confidence_score must be between 0.0 and 1.0")
+        if not (0.0 <= self.coverage_ratio <= 1.0):
+            raise ValueError("coverage_ratio must be between 0.0 and 1.0")
+
+
+# 邊界層 - 使用 Pydantic BaseModel
+class BatchMetadata(BaseModel):
+    """批次元數據 - 外部資料交換"""
+    event_id: str
+    batch_key: str
+    timestamp: datetime
+    source: DataSource
+    lang: Language
+    domain: str
+    version: str = "1.0"
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+    
+    def get_idempotency_key(self) -> str:
+        """生成冪等性檢查鍵"""
+        return f"{self.event_id}_{self.batch_key}_{self.domain}"
+
+
+class DatabaseConnection(BaseModel):
+    """資料庫連接資訊 - DB I/O 邊界層"""
+    db_type: DatabaseType
+    host: str
+    port: int
+    database: str
+    username: Optional[str] = None
+    password: Optional[str] = None
+    connection_params: Dict[str, Any] = Field(default_factory=dict)
+    
+    @field_validator('port')
+    @classmethod
+    def validate_port(cls, v: int) -> int:
+        if not (1 <= v <= 65535):
+            raise ValueError("Port must be between 1 and 65535")
+        return v
+    
+    def get_connection_string(self) -> str:
+        """獲取連接字串"""
+        if self.db_type == DatabaseType.DUCKDB:
+            return self.database
+        elif self.db_type == DatabaseType.NEO4J:
+            return f"bolt://{self.host}:{self.port}"
+        else:
+            raise ValueError(f"Unsupported database type: {self.db_type}")
+
+
+class SnapshotInfo(BaseModel):
+    """快照資訊 - DB I/O 邊界層"""
+    snapshot_id: str
+    name: str
+    timestamp: datetime
+    db_type: DatabaseType
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+
+
+class WorkflowConfig(BaseModel):
+    """基礎工作流配置 - API 邊界層"""
     workflow_id: str
     domain: str
-    timeout_seconds: int = 3600
-    retry_attempts: int = 3
+    timeout_seconds: int = Field(default=3600, gt=0)
+    retry_attempts: int = Field(default=3, ge=0)
     enable_snapshots: bool = True
-    snapshot_config: SnapshotConfig = field(default_factory=SnapshotConfig)
+    snapshot_config: SnapshotConfig = Field(default_factory=SnapshotConfig)
     duckdb_connection: Optional[DatabaseConnection] = None
     neo4j_connection: Optional[DatabaseConnection] = None
+
+
+class GovernanceEvent(BaseModel):
+    """治理事件 - DB I/O 邊界層"""
+    event_id: str
+    event_type: "GovernanceEventType"
+    workflow_id: str
+    domain: str
+    timestamp: datetime
+    event_data: Dict[str, Any] = Field(default_factory=dict)
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+
+
+class ProcessingResult(BaseModel):
+    """通用處理結果 - API 邊界層"""
+    success: bool
+    processed_count: int
+    error_count: int
+    warnings: List[str] = Field(default_factory=list)
+    errors: List[str] = Field(default_factory=list)
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+
+
+class BatchKey(BaseModel):
+    """批次識別 - 外部資料交換"""
+    domain: str
+    batch_id: str
+    timestamp: datetime
+    source_path: Optional[str] = None
+
+
+class VersionInfo(BaseModel):
+    """版本對齊資訊 - DB I/O 邊界層"""
+    norm_version: str
+    n_version: str
+    t_version: Optional[str] = None
     
-    def validate(self) -> ValidationResult:
-        """驗證配置"""
-        result = ValidationResult(is_valid=True)
-        
-        if not self.workflow_id:
-            result.add_error("workflow_id is required")
-        
-        if not self.domain:
-            result.add_error("domain is required")
-        
-        if self.timeout_seconds <= 0:
-            result.add_error("timeout_seconds must be positive")
-        
-        if self.retry_attempts < 0:
-            result.add_error("retry_attempts cannot be negative")
-        
-        return result
+    def is_aligned(self) -> bool:
+        """Check if norm and n versions are aligned"""
+        return self.norm_version == self.n_version
+
+
+class SnapshotRequest(BaseModel):
+    """建立快照請求 - API 邊界層"""
+    snapshot_type: "SnapshotType"
+    reason: str
+    batch_key: BatchKey
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+
+
+# 治理相關枚舉
+class GovernanceEventType(Enum):
+    """治理事件類型"""
+    SNAPSHOT_CREATE = "snapshot_create"
+    SNAPSHOT_RESTORE = "snapshot_restore"
+    BACKFILL_COMMIT = "backfill_commit"
+    DATA_QUALITY_CHECK = "data_quality_check"
+    SCHEMA_CHANGE = "schema_change"
+    WORKFLOW_START = "workflow_start"
+    WORKFLOW_COMPLETE = "workflow_complete"
+    WORKFLOW_FAILED = "workflow_failed"
+    
+
+
+class EventType(str, Enum):
+    """Common event types across workflows"""
+    INGEST_COMMIT = "INGEST_COMMIT"
+    SNAPSHOT_CREATE = "SNAPSHOT_CREATE"
+    NORM_UPDATE = "NORM_UPDATE"
+    PROPOSAL_SUBMIT = "PROPOSAL_SUBMIT"
+    CLUSTER_UPDATE = "CLUSTER_UPDATE"
+
+
+class SnapshotType(str, Enum):
+    """Snapshot types"""
+    DATA = "D"
+    TAXONOMY = "T"
+    NORM = "N"
+    SEMANTIC = "S"
+
+
+class ClusterStatus(str, Enum):
+    """聚類狀態枚舉"""
+    COLD = "COLD"
+    WARM = "WARM" 
+    HOT = "HOT"
+    ARCHIVED = "ARCHIVED"
 
 
 # 抽象基類
@@ -326,66 +417,6 @@ def create_workflow_result(
         message=message
     )
 
-# workflow 2 append new 
-
-class GovernanceEventType(Enum):
-    """治理事件類型"""
-    SNAPSHOT_CREATE = "snapshot_create"
-    SNAPSHOT_RESTORE = "snapshot_restore"
-    BACKFILL_COMMIT = "backfill_commit"
-    DATA_QUALITY_CHECK = "data_quality_check"
-    SCHEMA_CHANGE = "schema_change"
-    WORKFLOW_START = "workflow_start"
-    WORKFLOW_COMPLETE = "workflow_complete"
-    WORKFLOW_FAILED = "workflow_failed"
-
-
-@dataclass
-class GovernanceEvent:
-    """治理事件"""
-    event_id: str
-    event_type: GovernanceEventType
-    workflow_id: str
-    domain: str
-    timestamp: datetime
-    event_data: Dict[str, Any] = field(default_factory=dict)
-    metadata: Dict[str, Any] = field(default_factory=dict)
-    
-    def to_dict(self) -> Dict[str, Any]:
-        """轉換為字典格式"""
-        return {
-            "event_id": self.event_id,
-            "event_type": self.event_type.value,
-            "workflow_id": self.workflow_id,
-            "domain": self.domain,
-            "timestamp": self.timestamp.isoformat(),
-            "event_data": self.event_data,
-            "metadata": self.metadata
-        }
-
-
-@dataclass
-class DiffMetrics:
-    """差異指標"""
-    total_compared: int = 0
-    identical: int = 0
-    modified: int = 0
-    added: int = 0
-    removed: int = 0
-    
-    @property
-    def change_rate(self) -> float:
-        """變更率"""
-        if self.total_compared == 0:
-            return 0.0
-        return (self.modified + self.added + self.removed) / self.total_compared
-    
-    @property
-    def stability_rate(self) -> float:
-        """穩定率"""
-        if self.total_compared == 0:
-            return 1.0
-        return self.identical / self.total_compared
 
 def create_governance_event(
     event_type: GovernanceEventType,
@@ -408,7 +439,6 @@ def create_governance_event(
 
 def calculate_diff_metrics(old_data: List[Any], new_data: List[Any]) -> DiffMetrics:
     """計算差異指標"""
-    # 這是一個簡化的實作，實際實作需要根據資料類型進行比較
     metrics = DiffMetrics()
     
     old_set = set(str(item) for item in old_data)
@@ -421,63 +451,125 @@ def calculate_diff_metrics(old_data: List[Any], new_data: List[Any]) -> DiffMetr
     
     return metrics
 
-# end of workflow 2 related
+# W5 專用共用元件追加到檔案末尾
 
-# workflow 3 append new 
-class EventType(str, Enum):
-    """Common event types across workflows"""
-    INGEST_COMMIT = "INGEST_COMMIT"
-    SNAPSHOT_CREATE = "SNAPSHOT_CREATE"
-    NORM_UPDATE = "NORM_UPDATE"
-    PROPOSAL_SUBMIT = "PROPOSAL_SUBMIT"
-    CLUSTER_UPDATE = "CLUSTER_UPDATE"
+class MaintenanceEventType(str, Enum):
+    """維護事件類型 - W5 專用"""
+    PROPOSAL_REVIEW_BATCH = "PROPOSAL_REVIEW_BATCH"
+    TAXONOMY_SYNC = "TAXONOMY_SYNC"
+    VALUE_MAPPING_SYNC = "VALUE_MAPPING_SYNC"
+    VERSION_POINT_CREATE = "VERSION_POINT_CREATE"
+    CONSISTENCY_CHECK = "CONSISTENCY_CHECK"
 
-class SnapshotType(str, Enum):
-    """Snapshot types"""
-    DATA = "D"
-    TAXONOMY = "T"
-    NORM = "N"
-    SEMANTIC = "S"
 
-class ProcessingResult(BaseModel):
-    """Common processing result structure"""
-    success: bool
-    processed_count: int
-    error_count: int
-    warnings: List[str] = Field(default_factory=list)
-    errors: List[str] = Field(default_factory=list)
-    metadata: Dict[str, Any] = Field(default_factory=dict)
-
-class BatchKey(BaseModel):
-    """Common batch identification"""
-    domain: str
-    batch_id: str
-    timestamp: datetime
-    source_path: Optional[str] = None
-
-class VersionInfo(BaseModel):
-    """Version alignment information"""
-    norm_version: str
-    n_version: str
-    t_version: Optional[str] = None
+@dataclass
+class BackfillPlan:
+    """回填計畫 - W5 內部計算物件"""
+    target_entities: List[str] = field(default_factory=list)
+    estimated_records: int = 0
+    priority: int = 1  # 1=high, 2=medium, 3=low
+    estimated_duration_minutes: int = 0
+    dependencies: List[str] = field(default_factory=list)
     
-    def is_aligned(self) -> bool:
-        """Check if norm and n versions are aligned"""
-        return self.norm_version == self.n_version
+    def get_execution_order(self) -> int:
+        """獲取執行順序 (priority 越小越優先)"""
+        return self.priority
 
-class GovernanceEvent(BaseModel):
-    """Common governance event structure"""
-    event_type: EventType
-    event_id: str
-    batch_key: BatchKey
-    timestamp: datetime
-    metadata: Dict[str, Any] = Field(default_factory=dict)
 
-class SnapshotRequest(BaseModel):
-    """Request to create a snapshot"""
-    snapshot_type: SnapshotType
-    reason: str
-    batch_key: BatchKey
-    metadata: Dict[str, Any] = Field(default_factory=dict)
+def create_maintenance_batch_metadata(
+    event_id: str,
+    reviewer_id: str,
+    domain: str,
+    proposal_count: int
+) -> BatchMetadata:
+    """建立維護批次元數據"""
+    return BatchMetadata(
+        event_id=event_id,
+        batch_key=f"maintenance_{reviewer_id}_{proposal_count}",
+        timestamp=datetime.now(),
+        source=DataSource.MANUAL,
+        lang=Language.ZH_TW,  # 預設繁中
+        domain=domain,
+        metadata={
+            "reviewer_id": reviewer_id,
+            "proposal_count": str(proposal_count),
+            "operation_type": "maintenance"
+        }
+    )
 
-# end of workflow 3 related
+# end of W5 additions
+
+# W6 專用共用元件追加到檔案末尾
+
+class SemanticEventType(str, Enum):
+    """語意治理事件類型 - W6 專用"""
+    CANDIDATE_MERGE = "CANDIDATE_MERGE"
+    PROPOSAL_CREATE = "PROPOSAL_CREATE" 
+    CLUSTER_ANALYSIS = "CLUSTER_ANALYSIS"
+    SEMANTIC_MAPPING = "SEMANTIC_MAPPING"
+    GOVERNANCE_DECISION = "GOVERNANCE_DECISION"
+
+
+@dataclass
+class ClusteringMetrics:
+    """聚類指標 - W6 內部計算結果"""
+    total_observations: int = 0
+    total_clusters: int = 0
+    avg_cluster_size: float = 0.0
+    max_cluster_size: int = 0
+    min_cluster_size: int = 0
+    singleton_count: int = 0
+    purity_score: float = 0.0
+    
+    @property
+    def clustering_efficiency(self) -> float:
+        """聚類效率 (非單例的比例)"""
+        if self.total_observations == 0:
+            return 0.0
+        return (self.total_observations - self.singleton_count) / self.total_observations
+    
+    @property
+    def avg_support_per_cluster(self) -> float:
+        """平均每個聚類的支援度"""
+        if self.total_clusters == 0:
+            return 0.0
+        return self.total_observations / self.total_clusters
+
+
+@dataclass  
+class SimilarityMetrics:
+    """相似度計算指標 - W6 內部計算"""
+    similarity_score: float
+    method: str  # "cosine", "jaccard", "edit_distance" etc.
+    confidence: float = 0.0
+    
+    def __post_init__(self):
+        """驗證數值範圍"""
+        if not (0.0 <= self.similarity_score <= 1.0):
+            raise ValueError("similarity_score must be between 0.0 and 1.0")
+        if not (0.0 <= self.confidence <= 1.0):
+            raise ValueError("confidence must be between 0.0 and 1.0")
+
+
+def create_semantic_batch_metadata(
+    event_id: str,
+    domain: str,
+    category_id: str,
+    observation_count: int
+) -> BatchMetadata:
+    """建立語意治理批次元數據"""
+    return BatchMetadata(
+        event_id=event_id,
+        batch_key=f"semantic_{domain}_{category_id}_{observation_count}",
+        timestamp=datetime.now(),
+        source=DataSource.DATABASE,
+        lang=Language.ZH_TW,
+        domain=domain,
+        metadata={
+            "category_id": category_id,
+            "observation_count": str(observation_count),
+            "operation_type": "semantic_governance"
+        }
+    )
+
+# end of W6 additions

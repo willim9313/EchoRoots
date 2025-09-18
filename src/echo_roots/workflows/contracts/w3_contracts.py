@@ -2,10 +2,12 @@ from typing import Dict, Any, Optional, List
 from pydantic import BaseModel, Field, validator
 from enum import Enum
 from datetime import datetime
+from dataclasses import dataclass
 
 from .common import BatchKey, VersionInfo, ProcessingResult, GovernanceEvent
 from ...models import SStagingObs, ItemRaw, ItemNorm, OutlierRecord, Domain
 
+# 配置和請求/回應保持 Pydantic (邊界層)
 class W3ConfigKnobs(BaseModel):
     """W3 workflow configuration"""
     route_to_s_threshold: float = Field(default=0.7, ge=0.0, le=1.0)
@@ -33,23 +35,30 @@ class W3RawBatch(BaseModel):
     validation: W3InputValidation
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
+# 路由決策改為 dataclass (內部計算)
 class W3RoutingDecision(str, Enum):
     """Routing decisions for items"""
-    TAXONOMY = "T"  # 掛入分類
-    NORM = "N"      # 對應屬性值
-    OUTLIER = "OD"  # 進入異常檢測
-    STAGING = "S"   # 進入語意觀測
+    TAXONOMY = "T"
+    NORM = "N"
+    OUTLIER = "OD"
+    STAGING = "S"
 
-class W3ItemRoute(BaseModel):
-    """Individual item routing decision"""
+@dataclass
+class W3ItemRoute:
+    """Individual item routing decision - 內部計算物件"""
     item_id: str
     decision: W3RoutingDecision
-    confidence: Optional[float] = None
     reason: str
-    metadata: Dict[str, Any] = Field(default_factory=dict)
+    confidence: Optional[float] = None
+    metadata: Dict[str, Any] = None
+    
+    def __post_init__(self):
+        if self.metadata is None:
+            self.metadata = {}
 
-class W3RoutingResult(BaseModel):
-    """Result of routing decisions"""
+@dataclass
+class W3RoutingResult:
+    """Result of routing decisions - 內部計算結果"""
     total_items: int
     routes: List[W3ItemRoute]
     
@@ -61,26 +70,35 @@ class W3RoutingResult(BaseModel):
             counts[item_route.decision] += 1
         return counts
 
-class W3SemanticStagingResult(BaseModel):
-    """Result of semantic staging process"""
+# 處理結果改為 dataclass (內部計算結果)
+@dataclass
+class W3SemanticStagingResult:
+    """Result of semantic staging process - 內部計算結果"""
     observations_created: int
     qdrant_points_written: int
     staging_records: List[SStagingObs]
     processing_time_ms: float
-    errors: List[str] = Field(default_factory=list)
+    errors: List[str] = None
+    
+    def __post_init__(self):
+        if self.errors is None:
+            self.errors = []
 
-class W3NormalizationResult(BaseModel):
-    """Result of normalization process"""
+@dataclass
+class W3NormalizationResult:
+    """Result of normalization process - 內部計算結果"""
     normalized_items: List[ItemNorm]
     partial_normalizations: int
     failed_normalizations: int
     processing_time_ms: float
 
-class W3OutlierResult(BaseModel):
-    """Result of outlier detection"""
+@dataclass
+class W3OutlierResult:
+    """Result of outlier detection - 內部計算結果"""
     outlier_records: List[OutlierRecord]
     processing_time_ms: float
 
+# 輸出保持 Pydantic (API 邊界)
 class W3IngestOutput(BaseModel):
     """Complete output of W3 ingest workflow"""
     batch_key: BatchKey
@@ -91,6 +109,9 @@ class W3IngestOutput(BaseModel):
     governance_events: List[GovernanceEvent]
     snapshots_created: List[str] = Field(default_factory=list)
     overall_result: ProcessingResult
+    
+    class Config:
+        arbitrary_types_allowed = True  # 允許 dataclass 類型
 
 class W3IngestRequest(BaseModel):
     """Complete request for W3 ingest workflow"""
@@ -106,20 +127,30 @@ class W3IngestResponse(BaseModel):
     output: W3IngestOutput
     execution_time_ms: float
     idempotency_key: Optional[str] = None
+    
+    class Config:
+        arbitrary_types_allowed = True
 
-class W3PreCheckResult(BaseModel):
-    """Result of pre-flight checks"""
+# 檢查結果改为 dataclass (內部檢查邏輯)
+@dataclass
+class W3PreCheckResult:
+    """Result of pre-flight checks - 內部檢查結果"""
     version_aligned: bool
     batch_valid: bool
     dependencies_available: bool
     estimated_processing_time_ms: Optional[float] = None
-    warnings: List[str] = Field(default_factory=list)
+    warnings: List[str] = None
+    
+    def __post_init__(self):
+        if self.warnings is None:
+            self.warnings = []
     
     @property
     def can_proceed(self) -> bool:
         """Check if workflow can proceed"""
         return self.version_aligned and self.batch_valid and self.dependencies_available
 
+# 冪等性檢查保持 Pydantic (涉及外部狀態)
 class W3IdempotencyCheck(BaseModel):
     """Idempotency control for W3 workflow"""
     batch_key: BatchKey
@@ -132,6 +163,7 @@ class W3IdempotencyCheck(BaseModel):
         """Check if this is a duplicate request"""
         return self.previous_result is not None
 
+# 回滾操作保持 Pydantic (邊界操作)
 class W3RollbackRequest(BaseModel):
     """Request to rollback W3 operations"""
     batch_key: BatchKey

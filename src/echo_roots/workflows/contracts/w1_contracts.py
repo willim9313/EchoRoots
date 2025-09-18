@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional
 from datetime import datetime
 from uuid import UUID
+from pydantic import BaseModel, Field
 
 from .common import BatchMetadata, ValidationResult, WorkflowResult, SnapshotConfig, GovernanceEvent
 from ...models import (
@@ -10,9 +11,10 @@ from ...models import (
 )
 
 
+# 內部計算層 - 使用 dataclass
 @dataclass
 class CategoryHint:
-    """分類提示資訊 - 對應 w1_init.md 的 category_hint 輸入"""
+    """分類提示資訊 - 對應 w1_init.md 的 category_hint 輸入 - 內部計算物件"""
     name: str
     parent_name: Optional[str] = None
     level: int = 0
@@ -23,7 +25,7 @@ class CategoryHint:
 
 @dataclass
 class W1InitConfig:
-    """W1 初始化配置 - 對應 w1_init.md 的 Config Knobs"""
+    """W1 初始化配置 - 內部配置物件"""
     domain: Domain  # 使用 models 中的 Domain enum
     min_category_support: int = 10  # 對應 w1_init.md 的 min_category_support
     snapshot_config: SnapshotConfig = field(default_factory=SnapshotConfig)
@@ -38,17 +40,8 @@ class W1InitConfig:
 
 
 @dataclass
-class W1InitInput:
-    """W1 初始化輸入 - 對應 w1_init.md 的 Inputs"""
-    config: W1InitConfig
-    batch_metadata: BatchMetadata
-    d_raw_data: List[ItemRaw]  # 使用 models 中的 ItemRaw 而非 Dict
-    category_hints: List[CategoryHint] = field(default_factory=list)
-
-
-@dataclass
 class W1PreCheckResult:
-    """W1 預檢結果 - 對應 w1_init.md 的 Pre-checks"""
+    """W1 預檢結果 - 內部計算結果"""
     validation_result: ValidationResult
     batch_integrity_ok: bool  # d_raw 批次完整性檢查
     lang_source_valid: bool   # lang 與 source 值是否合法
@@ -60,7 +53,7 @@ class W1PreCheckResult:
 
 @dataclass
 class W1DatabaseInitResult:
-    """資料庫初始化結果 - 對應 w1_init.md 步驟1"""
+    """資料庫初始化結果 - 內部計算結果"""
     duckdb_initialized: bool
     neo4j_initialized: bool
     duckdb_script_executed: bool
@@ -71,7 +64,7 @@ class W1DatabaseInitResult:
 
 @dataclass
 class W1StructureImportResult:
-    """結構匯入結果 - 對應 w1_init.md 步驟2"""
+    """結構匯入結果 - 內部計算結果"""
     categories_created: int
     attributes_created: int
     values_created: int
@@ -89,15 +82,42 @@ class W1StructureImportResult:
 
 @dataclass
 class W1ValueMappingResult:
-    """值映射結果 - 對應 w1_init.md 步驟3"""
+    """值映射結果 - 內部計算結果"""
     mappings_created: int
     mappings: List[ValueMapping] = field(default_factory=list)  # 使用 models 中的 ValueMapping
     base_mappings_imported: bool = False
 
 
 @dataclass
-class W1InitOutput:
-    """W1 初始化輸出 - 對應 w1_init.md 的 Outputs 和 Side Effects"""
+class W1IdempotencyCheck:
+    """冪等性檢查 - 內部計算結果"""
+    event_id: str
+    batch_key: str  # 批次鍵
+    domain: Domain
+    previous_run_detected: bool = False
+    can_skip: bool = False
+    conflicts: List[str] = field(default_factory=list)
+
+
+@dataclass
+class W1RollbackInfo:
+    """回滾資訊 - 內部計算結果"""
+    pre_neo4j_snapshot_id: Optional[str] = None   # 寫入 Neo4j 前快照
+    post_neo4j_snapshot_id: Optional[str] = None  # 寫入 Neo4j 後快照
+    rollback_available: bool = False
+
+
+# 邊界層 - 使用 Pydantic BaseModel（API 輸入輸出）
+class W1InitInput(BaseModel):
+    """W1 初始化輸入 - API 邊界層"""
+    config: W1InitConfig
+    batch_metadata: BatchMetadata
+    d_raw_data: List[ItemRaw]  # 使用 models 中的 ItemRaw 而非 Dict
+    category_hints: List[CategoryHint] = Field(default_factory=list)
+
+
+class W1InitOutput(BaseModel):
+    """W1 初始化輸出 - API 邊界層"""
     workflow_result: WorkflowResult
     
     # 步驟結果
@@ -111,8 +131,8 @@ class W1InitOutput:
     duckdb_d_norm_created: bool = False     # DuckDB: 空或極簡的 d_norm_{domain}
     
     # Side Effects - 對應 w1_init.md 的 SNAPSHOT_CREATE (T,N)
-    snapshot_ids: List[str] = field(default_factory=list)
-    governance_events: List[ModelGovernanceEvent] = field(default_factory=list)
+    snapshot_ids: List[str] = Field(default_factory=list)
+    governance_events: List[ModelGovernanceEvent] = Field(default_factory=list)
     
     # Definition of Done 檢查結果
     taxonomy_structure_browsable: bool = False  # 可瀏覽的根→葉分類結構
@@ -121,25 +141,6 @@ class W1InitOutput:
     # 版本資訊
     t_version_created: int = 1
     n_version_created: int = 1
-
-
-@dataclass
-class W1IdempotencyCheck:
-    """冪等性檢查 - 對應 w1_init.md 的 Idempotency"""
-    event_id: str
-    batch_key: str  # 批次鍵
-    domain: Domain
-    previous_run_detected: bool = False
-    can_skip: bool = False
-    conflicts: List[str] = field(default_factory=list)
-
-
-@dataclass
-class W1RollbackInfo:
-    """回滾資訊 - 對應 w1_init.md 的 Rollback"""
-    pre_neo4j_snapshot_id: Optional[str] = None   # 寫入 Neo4j 前快照
-    post_neo4j_snapshot_id: Optional[str] = None  # 寫入 Neo4j 後快照
-    rollback_available: bool = False
 
 
 # 介面定義 - 對應 w1_init.md 的完整步驟
