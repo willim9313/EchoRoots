@@ -7,7 +7,7 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional, Set
 from uuid import UUID
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from .enums import Domain, NormStatus, ReviewStatus, SState
 
@@ -18,7 +18,7 @@ from .enums import Domain, NormStatus, ReviewStatus, SState
 
 class ItemRaw(BaseModel):
     """D_raw - Raw item data from various sources"""
-    
+
     item_id: UUID
     domain: Domain
     title: str
@@ -28,8 +28,33 @@ class ItemRaw(BaseModel):
     source: Optional[str] = None
     specs: Dict[str, Any] = Field(default_factory=dict)
     tags: List[str] = Field(default_factory=list)
-    created_at: datetime = Field(default_factory=datetime.now)  # base.py已經有created_at欄位，這裡不需要再定義
-    updated_at: datetime = Field(default_factory=datetime.now)  # base.py已經有updated_at欄位，這裡不需要再定義
+    created_at: datetime = Field(default_factory=datetime.now)
+    updated_at: datetime = Field(default_factory=datetime.now)
+
+    @field_validator('raw_category_path')
+    @classmethod
+    def validate_category_path(cls, v: List[str]) -> List[str]:
+        """Validate category path elements are non-empty."""
+        for path_element in v:
+            if not isinstance(path_element, str) or len(path_element.strip()) == 0:
+                raise ValueError("Category path elements must be non-empty strings")
+        return v
+
+    @field_validator('specs')
+    @classmethod
+    def validate_specs(cls, v: Dict[str, Any]) -> Dict[str, Any]:
+        """Validate specs dictionary structure."""
+        # Convert numeric values to appropriate types
+        for key, value in v.items():
+            if isinstance(value, str) and value.replace('.', '').replace('-', '').isdigit():
+                try:
+                    if '.' in value:
+                        v[key] = float(value)
+                    else:
+                        v[key] = int(value)
+                except ValueError:
+                    pass  # Keep as string if conversion fails
+        return v
 
     class Config:
         json_schema_extra = {
@@ -38,37 +63,38 @@ class ItemRaw(BaseModel):
                 "domain": "product",
                 "title": "iPhone 15 Pro",
                 "description": "Latest iPhone with advanced features",
-                "raw_category_path": ["Electronics", "Phones", "Smartphones"],
-                "lang": "zh-TW",
+                "raw_category_path": ["Electronics", "Smartphones", "iPhone"],
+                "lang": "en",
                 "source": "apple_store",
                 "specs": {
                     "brand": "Apple", 
                     "price": 39900.0, 
                     "color": "Natural Titanium", 
                     "storage": "256GB"
-                }
+                },
+                "tags": ["smartphone", "ios", "camera"]
             }
         }
 
 
 class ItemNorm(BaseModel):
     """D_norm - Normalized item data with category and attributes mapping"""
-    
+
     item_id: UUID
     domain: Domain
     category_id: Optional[UUID] = None  # Reference to T layer
     attrs: Dict[str, Any] = Field(default_factory=dict)  # e.g., {"color": {"value_id": "...", "value": "綠色"}}
     evidence: Dict[str, Any] = Field(default_factory=dict)  # span/score/source fields
-    
+
     # Version tracking
     t_version: Optional[int] = None
     n_version: Optional[int] = None
     norm_version: Optional[int] = None
-    
+
     status: NormStatus = NormStatus.OK
     created_at: datetime = Field(default_factory=datetime.now)
     updated_at: datetime = Field(default_factory=datetime.now)
-    
+
     class Config:
         json_schema_extra = {
             "example": {
@@ -99,7 +125,7 @@ class ItemNorm(BaseModel):
 
 class OutlierRecord(BaseModel):
     """Records for items that couldn't be processed normally"""
-    
+
     outlier_id: UUID
     item_id: UUID
     domain: Domain
@@ -108,7 +134,7 @@ class OutlierRecord(BaseModel):
     review_status: ReviewStatus = ReviewStatus.PENDING
     created_at: datetime = Field(default_factory=datetime.now)
     updated_at: datetime = Field(default_factory=datetime.now)
-    
+
     class Config:
         json_schema_extra = {
             "example": {

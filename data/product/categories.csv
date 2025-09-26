@@ -1,0 +1,21 @@
+category_id,name,parent_id,path_string,level
+cat_001,Electronics,,Electronics,1
+cat_002,Smartphones,cat_001,Electronics/Smartphones,2
+cat_003,Android,cat_002,Electronics/Smartphones/Android,3
+cat_004,iPhone,cat_002,Electronics/Smartphones/iPhone,3
+cat_005,Laptops,cat_001,Electronics/Laptops,2
+cat_006,Gaming,cat_005,Electronics/Laptops/Gaming,3
+cat_007,Business,cat_005,Electronics/Laptops/Business,3
+cat_008,Tablets,cat_001,Electronics/Tablets,2
+cat_009,Home & Garden,,Home & Garden,1
+cat_010,Furniture,cat_009,Home & Garden/Furniture,2
+cat_011,Chairs,cat_010,Home & Garden/Furniture/Chairs,3
+cat_012,Tables,cat_010,Home & Garden/Furniture/Tables,3
+cat_013,Kitchen,cat_009,Home & Garden/Kitchen,2
+cat_014,Appliances,cat_013,Home & Garden/Kitchen/Appliances,3
+cat_015,Cookware,cat_013,Home & Garden/Kitchen/Cookware,3
+cat_016,Clothing,,Clothing,1
+cat_017,Men,cat_016,Clothing/Men,2
+cat_018,Women,cat_016,Clothing/Women,2
+cat_019,Kids,cat_016,Clothing/Kids,2
+cat_020,Sports & Outdoors,,Sports & Outdoors,1

@@ -1,0 +1,691 @@
+[
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174001",
+    "domain": "product",
+    "title": "iPhone 14 Pro Max",
+    "description": "Latest iPhone with Pro camera system and Dynamic Island",
+    "raw_category_path": ["Electronics", "Smartphones", "iPhone"],
+    "lang": "en",
+    "source": "amazon",
+    "specs": {
+      "brand": "Apple",
+      "price": 1099.99,
+      "color": "Deep Purple",
+      "storage": "256GB",
+      "screen_size": "6.7 inch"
+    },
+    "tags": ["smartphone", "ios", "camera"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174002",
+    "domain": "product",
+    "title": "Samsung Galaxy S23 Ultra",
+    "description": "Premium Android smartphone with S Pen",
+    "raw_category_path": ["Electronics", "Smartphones", "Android"],
+    "lang": "en",
+    "source": "amazon",
+    "specs": {
+      "brand": "Samsung",
+      "price": 1199.99,
+      "color": "Phantom Black",
+      "storage": "512GB",
+      "screen_size": "6.8 inch"
+    },
+    "tags": ["smartphone", "android", "s-pen"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174003",
+    "domain": "product",
+    "title": "MacBook Pro M2",
+    "description": "Professional laptop with Apple M2 chip",
+    "raw_category_path": ["Electronics", "Laptops", "Business"],
+    "lang": "en",
+    "source": "apple",
+    "specs": {
+      "brand": "Apple",
+      "price": 2399.99,
+      "color": "Space Gray",
+      "ram": "16GB",
+      "storage": "512GB SSD",
+      "screen_size": "14 inch",
+      "processor": "M2"
+    },
+    "tags": ["laptop", "macos", "professional"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174004",
+    "domain": "product",
+    "title": "ASUS ROG Strix Gaming Laptop",
+    "description": "High-performance gaming laptop with RTX graphics",
+    "raw_category_path": ["Electronics", "Laptops", "Gaming"],
+    "lang": "en",
+    "source": "newegg",
+    "specs": {
+      "brand": "ASUS",
+      "price": 1899.99,
+      "color": "Black",
+      "ram": "32GB",
+      "storage": "1TB SSD",
+      "gpu": "RTX 4060",
+      "screen_size": "15.6 inch"
+    },
+    "tags": ["laptop", "gaming", "rgb"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174005",
+    "domain": "product",
+    "title": "iPad Air",
+    "description": "Versatile tablet for work and creativity",
+    "raw_category_path": ["Electronics", "Tablets"],
+    "lang": "en",
+    "source": "amazon",
+    "specs": {
+      "brand": "Apple",
+      "price": 599.99,
+      "color": "Blue",
+      "storage": "64GB",
+      "screen_size": "10.9 inch"
+    },
+    "tags": ["tablet", "ios", "portable"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174006",
+    "domain": "product",
+    "title": "Office Chair Ergonomic",
+    "description": "Comfortable ergonomic office chair for long working hours",
+    "raw_category_path": ["Home & Garden", "Furniture", "Chairs"],
+    "lang": "en",
+    "source": "wayfair",
+    "specs": {
+      "brand": "Herman Miller",
+      "price": 799.99,
+      "color": "Black",
+      "material": "Mesh",
+      "adjustable": true
+    },
+    "tags": ["office", "ergonomic", "comfort"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174007",
+    "domain": "product",
+    "title": "Dining Table Oak Wood",
+    "description": "Solid oak dining table for family meals",
+    "raw_category_path": ["Home & Garden", "Furniture", "Tables"],
+    "lang": "en",
+    "source": "ikea",
+    "specs": {
+      "brand": "IKEA",
+      "price": 299.99,
+      "color": "Natural Oak",
+      "material": "Solid Wood",
+      "seats": 6
+    },
+    "tags": ["dining", "wood", "family"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174008",
+    "domain": "product",
+    "title": "KitchenAid Stand Mixer",
+    "description": "Professional-grade stand mixer for baking enthusiasts",
+    "raw_category_path": ["Home & Garden", "Kitchen", "Appliances"],
+    "lang": "en",
+    "source": "williams_sonoma",
+    "specs": {
+      "brand": "KitchenAid",
+      "price": 349.99,
+      "color": "Red",
+      "capacity": "5 quart",
+      "power": "325W"
+    },
+    "tags": ["baking", "kitchen", "mixer"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174009",
+    "domain": "product",
+    "title": "Non-stick Pan Set",
+    "description": "Complete cookware set with non-stick coating",
+    "raw_category_path": ["Home & Garden", "Kitchen", "Cookware"],
+    "lang": "en",
+    "source": "amazon",
+    "specs": {
+      "brand": "Calphalon",
+      "price": 129.99,
+      "color": "Black",
+      "material": "Hard-Anodized Aluminum",
+      "pieces": 10
+    },
+    "tags": ["cookware", "non-stick", "set"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174010",
+    "domain": "product",
+    "title": "Men's Casual Shirt",
+    "description": "Comfortable cotton casual shirt for everyday wear",
+    "raw_category_path": ["Clothing", "Men"],
+    "lang": "en",
+    "source": "uniqlo",
+    "specs": {
+      "brand": "Uniqlo",
+      "price": 29.99,
+      "color": "White",
+      "size": "L",
+      "material": "Cotton"
+    },
+    "tags": ["casual", "shirt", "cotton"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174011",
+    "domain": "product",
+    "title": "Women's Summer Dress",
+    "description": "Light and breezy summer dress with floral pattern",
+    "raw_category_path": ["Clothing", "Women"],
+    "lang": "en",
+    "source": "hm",
+    "specs": {
+      "brand": "H&M",
+      "price": 39.99,
+      "color": "Floral Print",
+      "size": "M",
+      "material": "Polyester"
+    },
+    "tags": ["dress", "summer", "floral"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174012",
+    "domain": "product",
+    "title": "Kids' Sneakers",
+    "description": "Durable and comfortable sneakers for active kids",
+    "raw_category_path": ["Clothing", "Kids"],
+    "lang": "en",
+    "source": "nike",
+    "specs": {
+      "brand": "Nike",
+      "price": 65.99,
+      "color": "Blue/White",
+      "size": "US 3",
+      "material": "Synthetic"
+    },
+    "tags": ["kids", "sneakers", "active"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174013",
+    "domain": "product",
+    "title": "Running Shoes",
+    "description": "High-performance running shoes for athletes",
+    "raw_category_path": ["Sports & Outdoors"],
+    "lang": "en",
+    "source": "adidas",
+    "specs": {
+      "brand": "Adidas",
+      "price": 119.99,
+      "color": "Black/Red",
+      "size": "US 10",
+      "material": "Mesh"
+    },
+    "tags": ["running", "athletic", "performance"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174014",
+    "domain": "product",
+    "title": "Google Pixel 7",
+    "description": "Advanced Android phone with pure Google experience",
+    "raw_category_path": ["Electronics", "Smartphones", "Android"],
+    "lang": "en",
+    "source": "google_store",
+    "specs": {
+      "brand": "Google",
+      "price": 599.99,
+      "color": "Obsidian",
+      "storage": "128GB",
+      "screen_size": "6.3 inch"
+    },
+    "tags": ["smartphone", "android", "google"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174015",
+    "domain": "product",
+    "title": "Dell XPS 13",
+    "description": "Ultra-portable business laptop with premium design",
+    "raw_category_path": ["Electronics", "Laptops", "Business"],
+    "lang": "en",
+    "source": "dell",
+    "specs": {
+      "brand": "Dell",
+      "price": 1299.99,
+      "color": "Silver",
+      "ram": "16GB",
+      "storage": "512GB SSD",
+      "screen_size": "13.3 inch"
+    },
+    "tags": ["laptop", "business", "portable"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174016",
+    "domain": "product",
+    "title": "Gaming Chair RGB",
+    "description": "Professional gaming chair with RGB lighting",
+    "raw_category_path": ["Home & Garden", "Furniture", "Chairs"],
+    "lang": "en",
+    "source": "secretlab",
+    "specs": {
+      "brand": "Secretlab",
+      "price": 459.99,
+      "color": "Black/Blue",
+      "material": "PU Leather",
+      "adjustable": true,
+      "rgb_lighting": true
+    },
+    "tags": ["gaming", "chair", "rgb"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174017",
+    "domain": "product",
+    "title": "Coffee Table Modern",
+    "description": "Minimalist modern coffee table for living room",
+    "raw_category_path": ["Home & Garden", "Furniture", "Tables"],
+    "lang": "en",
+    "source": "west_elm",
+    "specs": {
+      "brand": "West Elm",
+      "price": 399.99,
+      "color": "White",
+      "material": "MDF",
+      "shape": "Round"
+    },
+    "tags": ["coffee", "modern", "living-room"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174018",
+    "domain": "product",
+    "title": "Instant Pot Duo",
+    "description": "Multi-functional pressure cooker for quick meals",
+    "raw_category_path": ["Home & Garden", "Kitchen", "Appliances"],
+    "lang": "en",
+    "source": "amazon",
+    "specs": {
+      "brand": "Instant Pot",
+      "price": 79.99,
+      "color": "Stainless Steel",
+      "capacity": "6 quart",
+      "functions": 7
+    },
+    "tags": ["pressure-cooker", "multi-function", "quick-meals"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174019",
+    "domain": "product",
+    "title": "Cast Iron Skillet",
+    "description": "Traditional cast iron skillet for even heat distribution",
+    "raw_category_path": ["Home & Garden", "Kitchen", "Cookware"],
+    "lang": "en",
+    "source": "amazon",
+    "specs": {
+      "brand": "Lodge",
+      "price": 34.99,
+      "color": "Black",
+      "material": "Cast Iron",
+      "size": "12 inch"
+    },
+    "tags": ["cast-iron", "skillet", "traditional"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174020",
+    "domain": "product",
+    "title": "Men's Denim Jeans",
+    "description": "Classic denim jeans with comfortable fit",
+    "raw_category_path": ["Clothing", "Men"],
+    "lang": "en",
+    "source": "levis",
+    "specs": {
+      "brand": "Levi's",
+      "price": 89.99,
+      "color": "Dark Blue",
+      "size": "32x34",
+      "material": "Denim"
+    },
+    "tags": ["jeans", "denim", "classic"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174021",
+    "domain": "product",
+    "title": "Women's Yoga Pants",
+    "description": "High-quality yoga pants for active lifestyle",
+    "raw_category_path": ["Clothing", "Women"],
+    "lang": "en",
+    "source": "lululemon",
+    "specs": {
+      "brand": "Lululemon",
+      "price": 128.99,
+      "color": "Black",
+      "size": "S",
+      "material": "Nylon/Elastane"
+    },
+    "tags": ["yoga", "activewear", "stretch"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174022",
+    "domain": "product",
+    "title": "Kids' Winter Jacket",
+    "description": "Warm and waterproof jacket for winter activities",
+    "raw_category_path": ["Clothing", "Kids"],
+    "lang": "en",
+    "source": "patagonia",
+    "specs": {
+      "brand": "Patagonia",
+      "price": 149.99,
+      "color": "Navy Blue",
+      "size": "Age 8",
+      "material": "Recycled Polyester"
+    },
+    "tags": ["kids", "winter", "waterproof"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174023",
+    "domain": "product",
+    "title": "Yoga Mat Premium",
+    "description": "High-quality yoga mat with excellent grip",
+    "raw_category_path": ["Sports & Outdoors"],
+    "lang": "en",
+    "source": "manduka",
+    "specs": {
+      "brand": "Manduka",
+      "price": 89.99,
+      "color": "Purple",
+      "thickness": "6mm",
+      "material": "Natural Rubber"
+    },
+    "tags": ["yoga", "mat", "premium"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174024",
+    "domain": "product",
+    "title": "OnePlus 11",
+    "description": "Flagship Android phone with fast charging",
+    "raw_category_path": ["Electronics", "Smartphones", "Android"],
+    "lang": "en",
+    "source": "oneplus",
+    "specs": {
+      "brand": "OnePlus",
+      "price": 699.99,
+      "color": "Titan Black",
+      "storage": "256GB",
+      "screen_size": "6.7 inch"
+    },
+    "tags": ["smartphone", "android", "fast-charging"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174025",
+    "domain": "product",
+    "title": "HP Pavilion Gaming",
+    "description": "Affordable gaming laptop for casual gamers",
+    "raw_category_path": ["Electronics", "Laptops", "Gaming"],
+    "lang": "en",
+    "source": "hp",
+    "specs": {
+      "brand": "HP",
+      "price": 1099.99,
+      "color": "Green",
+      "ram": "16GB",
+      "storage": "512GB SSD",
+      "gpu": "GTX 1660 Ti"
+    },
+    "tags": ["laptop", "gaming", "affordable"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174026",
+    "domain": "product",
+    "title": "Samsung Galaxy Tab S8",
+    "description": "Premium Android tablet for productivity",
+    "raw_category_path": ["Electronics", "Tablets"],
+    "lang": "en",
+    "source": "samsung",
+    "specs": {
+      "brand": "Samsung",
+      "price": 699.99,
+      "color": "Graphite",
+      "storage": "128GB",
+      "screen_size": "11 inch"
+    },
+    "tags": ["tablet", "android", "productivity"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174027",
+    "domain": "product",
+    "title": "Recliner Chair Leather",
+    "description": "Luxury leather recliner chair for relaxation",
+    "raw_category_path": ["Home & Garden", "Furniture", "Chairs"],
+    "lang": "en",
+    "source": "lazboy",
+    "specs": {
+      "brand": "La-Z-Boy",
+      "price": 899.99,
+      "color": "Brown",
+      "material": "Genuine Leather",
+      "reclining": true
+    },
+    "tags": ["recliner", "leather", "luxury"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174028",
+    "domain": "product",
+    "title": "Bar Table Industrial",
+    "description": "Industrial-style bar table for modern spaces",
+    "raw_category_path": ["Home & Garden", "Furniture", "Tables"],
+    "lang": "en",
+    "source": "world_market",
+    "specs": {
+      "brand": "World Market",
+      "price": 199.99,
+      "color": "Black",
+      "material": "Metal/Wood",
+      "height": "42 inch"
+    },
+    "tags": ["bar", "industrial", "modern"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174029",
+    "domain": "product",
+    "title": "Air Fryer Digital",
+    "description": "Digital air fryer for healthy cooking",
+    "raw_category_path": ["Home & Garden", "Kitchen", "Appliances"],
+    "lang": "en",
+    "source": "ninja",
+    "specs": {
+      "brand": "Ninja",
+      "price": 149.99,
+      "color": "Black",
+      "capacity": "5.5 quart",
+      "functions": 8
+    },
+    "tags": ["air-fryer", "healthy", "digital"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174030",
+    "domain": "product",
+    "title": "Knife Set Professional",
+    "description": "Professional chef's knife set for serious cooking",
+    "raw_category_path": ["Home & Garden", "Kitchen", "Cookware"],
+    "lang": "en",
+    "source": "williams_sonoma",
+    "specs": {
+      "brand": "Wusthof",
+      "price": 299.99,
+      "color": "Silver",
+      "material": "High Carbon Steel",
+      "pieces": 7
+    },
+    "tags": ["knives", "professional", "chef"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174031",
+    "domain": "product",
+    "title": "Men's Polo Shirt",
+    "description": "Classic polo shirt for casual and business wear",
+    "raw_category_path": ["Clothing", "Men"],
+    "lang": "en",
+    "source": "ralph_lauren",
+    "specs": {
+      "brand": "Ralph Lauren",
+      "price": 89.99,
+      "color": "Navy",
+      "size": "L",
+      "material": "Cotton Pique"
+    },
+    "tags": ["polo", "classic", "versatile"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174032",
+    "domain": "product",
+    "title": "Women's Blazer",
+    "description": "Professional blazer for business attire",
+    "raw_category_path": ["Clothing", "Women"],
+    "lang": "en",
+    "source": "zara",
+    "specs": {
+      "brand": "Zara",
+      "price": 79.99,
+      "color": "Black",
+      "size": "M",
+      "material": "Polyester Blend"
+    },
+    "tags": ["blazer", "professional", "business"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174033",
+    "domain": "product",
+    "title": "Kids' Backpack",
+    "description": "Durable backpack for school and outdoor activities",
+    "raw_category_path": ["Clothing", "Kids"],
+    "lang": "en",
+    "source": "jansport",
+    "specs": {
+      "brand": "JanSport",
+      "price": 39.99,
+      "color": "Pink",
+      "capacity": "25L",
+      "material": "Polyester"
+    },
+    "tags": ["backpack", "school", "durable"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174034",
+    "domain": "product",
+    "title": "Basketball Official",
+    "description": "Official size basketball for competitive play",
+    "raw_category_path": ["Sports & Outdoors"],
+    "lang": "en",
+    "source": "wilson",
+    "specs": {
+      "brand": "Wilson",
+      "price": 29.99,
+      "color": "Orange",
+      "size": "Official",
+      "material": "Composite Leather"
+    },
+    "tags": ["basketball", "official", "sport"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174035",
+    "domain": "product",
+    "title": "iPhone 13 Mini",
+    "description": "Compact iPhone with full features",
+    "raw_category_path": ["Electronics", "Smartphones", "iPhone"],
+    "lang": "en",
+    "source": "apple",
+    "specs": {
+      "brand": "Apple",
+      "price": 629.99,
+      "color": "Pink",
+      "storage": "128GB",
+      "screen_size": "5.4 inch"
+    },
+    "tags": ["smartphone", "ios", "compact"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174036",
+    "domain": "product",
+    "title": "Lenovo ThinkPad X1",
+    "description": "Premium business laptop with enterprise features",
+    "raw_category_path": ["Electronics", "Laptops", "Business"],
+    "lang": "en",
+    "source": "lenovo",
+    "specs": {
+      "brand": "Lenovo",
+      "price": 1799.99,
+      "color": "Black",
+      "ram": "32GB",
+      "storage": "1TB SSD",
+      "screen_size": "14 inch"
+    },
+    "tags": ["laptop", "business", "premium"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174037",
+    "domain": "product",
+    "title": "Microsoft Surface Pro",
+    "description": "Versatile 2-in-1 tablet and laptop",
+    "raw_category_path": ["Electronics", "Tablets"],
+    "lang": "en",
+    "source": "microsoft",
+    "specs": {
+      "brand": "Microsoft",
+      "price": 1099.99,
+      "color": "Platinum",
+      "storage": "256GB",
+      "screen_size": "13 inch"
+    },
+    "tags": ["tablet", "2-in-1", "windows"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174038",
+    "domain": "product",
+    "title": "Espresso Machine",
+    "description": "Professional espresso machine for coffee lovers",
+    "raw_category_path": ["Home & Garden", "Kitchen", "Appliances"],
+    "lang": "en",
+    "source": "breville",
+    "specs": {
+      "brand": "Breville",
+      "price": 699.99,
+      "color": "Stainless Steel",
+      "pressure": "15 bar",
+      "water_capacity": "67 oz"
+    },
+    "tags": ["espresso", "coffee", "professional"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174039",
+    "domain": "product",
+    "title": "Hiking Boots Waterproof",
+    "description": "Waterproof hiking boots for outdoor adventures",
+    "raw_category_path": ["Sports & Outdoors"],
+    "lang": "en",
+    "source": "merrell",
+    "specs": {
+      "brand": "Merrell",
+      "price": 139.99,
+      "color": "Brown",
+      "size": "US 9",
+      "material": "Leather/Mesh",
+      "waterproof": true
+    },
+    "tags": ["hiking", "boots", "waterproof"]
+  },
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174040",
+    "domain": "product",
+    "title": "Women's Winter Coat",
+    "description": "Premium down-filled winter coat for extreme cold",
+    "raw_category_path": ["Clothing", "Women"],
+    "lang": "en",
+    "source": "canada_goose",
+    "specs": {
+      "brand": "Canada Goose",
+      "price": 995.99,
+      "color": "Black",
+      "size": "M",
+      "material": "Down Fill"
+    },
+    "tags": ["winter", "coat", "premium"]
+  }
+]

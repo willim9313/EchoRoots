@@ -8,7 +8,6 @@ from pydantic import Field, field_validator, model_validator
 
 from .base import BaseModel
 from .enums import AttrType, AttributeStatus, CategoryStatus, Domain, ValueStatus
-# BaseModel中已經有created_at和updated_at欄位
 
 class Category(BaseModel):
     """Category (T-layer) model representing taxonomy structure."""
@@ -23,6 +22,24 @@ class Category(BaseModel):
     status: CategoryStatus = CategoryStatus.ACTIVE
     bound_attr_ids: List[UUID] = Field(default_factory=list)
     t_version: int = Field(default=1, ge=1)
+    
+    @classmethod
+    def from_path_string(cls, path_string: str, category_id: UUID, domain: Domain, parent_id: Optional[UUID] = None) -> 'Category':
+        """Create Category from path string like 'Electronics/Smartphones/iPhone'."""
+        path_elements = [p.strip() for p in path_string.split('/') if p.strip()]
+        if not path_elements:
+            raise ValueError("Path string cannot be empty")
+        
+        name = path_elements[-1]  # Last element is the category name
+        
+        return cls(
+            category_id=category_id,
+            domain=domain,
+            name=name,
+            parent_id=parent_id,
+            path=path_elements,
+            path_ids=[category_id]  # Will be updated when building full hierarchy
+        )
     
     @field_validator('labels')
     @classmethod
@@ -42,20 +59,16 @@ class Category(BaseModel):
         """Validate category hierarchy consistency."""
         if self.parent_id is None:
             # Root category
-            if len(self.path) != 1 or self.path[0] != self.name:
-                raise ValueError("Root category path must contain only its name")
-            if len(self.path_ids) != 1 or self.path_ids[0] != self.category_id:
-                raise ValueError("Root category path_ids must contain only its ID")
+            if len(self.path) == 0:
+                raise ValueError("Root category must have non-empty path")
+            if self.path[-1] != self.name:
+                raise ValueError("Category name must be the last element in path")
         else:
             # Child category
             if len(self.path) == 0:
                 raise ValueError("Child category must have non-empty path")
             if self.path[-1] != self.name:
                 raise ValueError("Category name must be the last element in path")
-            if len(self.path_ids) != len(self.path):
-                raise ValueError("path_ids length must match path length")
-            if self.path_ids[-1] != self.category_id:
-                raise ValueError("Category ID must be the last element in path_ids")
         
         return self
 

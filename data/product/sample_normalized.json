@@ -1,0 +1,39 @@
+[
+  {
+    "item_id": "123e4567-e89b-12d3-a456-426614174001",
+    "domain": "product",
+    "category_id": "987fcdeb-51d2-4567-8901-123456789001",
+    "attrs": {
+      "brand": {
+        "value_id": "brand_apple_001",
+        "value": "Apple"
+      },
+      "color": {
+        "value_id": "color_purple_001", 
+        "value": "Deep Purple"
+      },
+      "storage": {
+        "value_id": "storage_256gb_001",
+        "value": "256GB"
+      },
+      "price": {
+        "value_id": null,
+        "value": 1099.99
+      }
+    },
+    "evidence": {
+      "brand": {
+        "source_field": "specs.brand",
+        "score": 1.0
+      },
+      "color": {
+        "source_field": "specs.color", 
+        "score": 0.95
+      }
+    },
+    "t_version": 1,
+    "n_version": 1,
+    "norm_version": 1,
+    "status": "ok"
+  }
+]

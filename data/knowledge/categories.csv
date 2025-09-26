@@ -1,0 +1,21 @@
+category_id,name,parent_id,path_string,level
+cat_k001,Mathematics,,"Mathematics",1
+cat_k002,Statistics,cat_k001,"Mathematics/Statistics",2
+cat_k003,Descriptive Statistics,cat_k002,"Mathematics/Statistics/Descriptive Statistics",3
+cat_k004,Inferential Statistics,cat_k002,"Mathematics/Statistics/Inferential Statistics",3
+cat_k005,Linear Algebra,cat_k001,"Mathematics/Linear Algebra",2
+cat_k006,Machine Learning,,"Machine Learning",1
+cat_k007,Supervised Learning,cat_k006,"Machine Learning/Supervised Learning",2
+cat_k008,Classification,cat_k007,"Machine Learning/Supervised Learning/Classification",3
+cat_k009,Regression,cat_k007,"Machine Learning/Supervised Learning/Regression",3
+cat_k010,Unsupervised Learning,cat_k006,"Machine Learning/Unsupervised Learning",2
+cat_k011,Clustering,cat_k010,"Machine Learning/Unsupervised Learning/Clustering",3
+cat_k012,Programming,,"Programming",1
+cat_k013,Python,cat_k012,"Programming/Python",2
+cat_k014,R,cat_k012,"Programming/R",2
+cat_k015,Data Visualization,,"Data Visualization",1
+cat_k016,Statistical Charts,cat_k015,"Data Visualization/Statistical Charts",2
+cat_k017,Deep Learning,,"Deep Learning",1
+cat_k018,Neural Networks,cat_k017,"Deep Learning/Neural Networks",2
+cat_k019,Computer Vision,cat_k017,"Deep Learning/Computer Vision",2
+cat_k020,Natural Language Processing,cat_k017,"Deep Learning/Natural Language Processing",2

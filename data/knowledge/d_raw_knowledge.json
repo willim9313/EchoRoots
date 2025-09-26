@@ -1,0 +1,682 @@
+[
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175001",
+    "domain": "knowledge",
+    "title": "Central Limit Theorem",
+    "description": "Fundamental theorem in probability theory stating that the distribution of sample means approaches normality",
+    "raw_category_path": ["Mathematics", "Statistics", "Inferential Statistics"],
+    "lang": "en",
+    "source": "textbook",
+    "specs": {
+      "difficulty": "intermediate",
+      "field": "statistics",
+      "applications": ["hypothesis testing", "confidence intervals"],
+      "prerequisites": ["probability", "sampling"],
+      "confidence_level": 0.95
+    },
+    "tags": ["theorem", "probability", "sampling", "distribution"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175002",
+    "domain": "knowledge",
+    "title": "Random Forest Algorithm",
+    "description": "Ensemble learning method that combines multiple decision trees for improved accuracy",
+    "raw_category_path": ["Machine Learning", "Supervised Learning", "Classification"],
+    "lang": "en",
+    "source": "research_paper",
+    "specs": {
+      "difficulty": "intermediate",
+      "algorithm_type": "ensemble",
+      "applications": ["classification", "regression"],
+      "advantages": ["reduces overfitting", "handles missing values"],
+      "time_complexity": "O(n log n)"
+    },
+    "tags": ["algorithm", "ensemble", "decision-tree", "bagging"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175003",
+    "domain": "knowledge",
+    "title": "Principal Component Analysis",
+    "description": "Dimensionality reduction technique that projects data onto lower-dimensional space",
+    "raw_category_path": ["Mathematics", "Linear Algebra"],
+    "lang": "en",
+    "source": "course_notes",
+    "specs": {
+      "difficulty": "advanced",
+      "method_type": "dimensionality_reduction",
+      "applications": ["data compression", "visualization"],
+      "mathematical_basis": "eigenvalue decomposition",
+      "explained_variance": 0.95
+    },
+    "tags": ["pca", "dimensionality-reduction", "eigenvalues", "linear-algebra"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175004",
+    "domain": "knowledge",
+    "title": "Pandas DataFrame",
+    "description": "Primary data structure in pandas library for data manipulation and analysis",
+    "raw_category_path": ["Programming", "Python"],
+    "lang": "en",
+    "source": "documentation",
+    "specs": {
+      "difficulty": "beginner",
+      "data_structure": "tabular",
+      "library": "pandas",
+      "operations": ["filtering", "grouping", "merging"],
+      "memory_efficient": true
+    },
+    "tags": ["python", "pandas", "dataframe", "data-structure"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175005",
+    "domain": "knowledge",
+    "title": "K-Means Clustering",
+    "description": "Unsupervised learning algorithm that partitions data into k clusters",
+    "raw_category_path": ["Machine Learning", "Unsupervised Learning", "Clustering"],
+    "lang": "en",
+    "source": "tutorial",
+    "specs": {
+      "difficulty": "beginner",
+      "algorithm_type": "clustering",
+      "distance_metric": "euclidean",
+      "initialization": "k-means++",
+      "convergence_criterion": "centroid_stability"
+    },
+    "tags": ["clustering", "unsupervised", "centroid", "partitioning"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175006",
+    "domain": "knowledge",
+    "title": "Convolutional Neural Network",
+    "description": "Deep learning architecture particularly effective for image recognition tasks",
+    "raw_category_path": ["Deep Learning", "Computer Vision"],
+    "lang": "en",
+    "source": "research_paper",
+    "specs": {
+      "difficulty": "advanced",
+      "architecture_type": "neural_network",
+      "applications": ["image_classification", "object_detection"],
+      "key_layers": ["convolution", "pooling", "fully_connected"],
+      "parameter_sharing": true
+    },
+    "tags": ["cnn", "deep-learning", "computer-vision", "convolution"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175007",
+    "domain": "knowledge",
+    "title": "Hypothesis Testing",
+    "description": "Statistical method for making inferences about population parameters",
+    "raw_category_path": ["Mathematics", "Statistics", "Inferential Statistics"],
+    "lang": "en",
+    "source": "textbook",
+    "specs": {
+      "difficulty": "intermediate",
+      "statistical_method": "inference",
+      "types": ["one-tailed", "two-tailed"],
+      "error_types": ["type_i", "type_ii"],
+      "significance_level": 0.05
+    },
+    "tags": ["hypothesis", "testing", "p-value", "significance"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175008",
+    "domain": "knowledge",
+    "title": "Linear Regression",
+    "description": "Statistical method for modeling relationship between dependent and independent variables",
+    "raw_category_path": ["Machine Learning", "Supervised Learning", "Regression"],
+    "lang": "en",
+    "source": "course_material",
+    "specs": {
+      "difficulty": "beginner",
+      "model_type": "linear",
+      "assumptions": ["linearity", "independence", "homoscedasticity"],
+      "evaluation_metrics": ["r_squared", "rmse"],
+      "regularization": ["ridge", "lasso"]
+    },
+    "tags": ["regression", "linear", "supervised", "prediction"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175009",
+    "domain": "knowledge",
+    "title": "Matplotlib Visualization",
+    "description": "Python library for creating static, animated, and interactive visualizations",
+    "raw_category_path": ["Data Visualization", "Statistical Charts"],
+    "lang": "en",
+    "source": "documentation",
+    "specs": {
+      "difficulty": "beginner",
+      "library": "matplotlib",
+      "chart_types": ["line", "bar", "scatter", "histogram"],
+      "customizable": true,
+      "publication_quality": true
+    },
+    "tags": ["visualization", "matplotlib", "charts", "plotting"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175010",
+    "domain": "knowledge",
+    "title": "Standard Deviation",
+    "description": "Measure of variability or dispersion in a dataset",
+    "raw_category_path": ["Mathematics", "Statistics", "Descriptive Statistics"],
+    "lang": "en",
+    "source": "reference",
+    "specs": {
+      "difficulty": "beginner",
+      "measure_type": "dispersion",
+      "formula": "sqrt(variance)",
+      "interpretation": "average_distance_from_mean",
+      "units": "same_as_data"
+    },
+    "tags": ["statistics", "dispersion", "variability", "standard-deviation"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175011",
+    "domain": "knowledge",
+    "title": "Support Vector Machine",
+    "description": "Supervised learning algorithm that finds optimal hyperplane for classification",
+    "raw_category_path": ["Machine Learning", "Supervised Learning", "Classification"],
+    "lang": "en",
+    "source": "academic_paper",
+    "specs": {
+      "difficulty": "advanced",
+      "algorithm_type": "margin_maximization",
+      "kernel_trick": true,
+      "kernels": ["linear", "rbf", "polynomial"],
+      "regularization_parameter": "C"
+    },
+    "tags": ["svm", "classification", "hyperplane", "kernel"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175012",
+    "domain": "knowledge",
+    "title": "Gradient Descent",
+    "description": "Optimization algorithm used to minimize cost functions in machine learning",
+    "raw_category_path": ["Machine Learning"],
+    "lang": "en",
+    "source": "tutorial",
+    "specs": {
+      "difficulty": "intermediate",
+      "optimization_method": "first_order",
+      "learning_rate": "hyperparameter",
+      "variants": ["batch", "stochastic", "mini-batch"],
+      "convergence": "local_minimum"
+    },
+    "tags": ["optimization", "gradient", "learning", "convergence"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175013",
+    "domain": "knowledge",
+    "title": "BERT Model",
+    "description": "Bidirectional transformer model for natural language understanding",
+    "raw_category_path": ["Deep Learning", "Natural Language Processing"],
+    "lang": "en",
+    "source": "research_paper",
+    "specs": {
+      "difficulty": "advanced",
+      "model_type": "transformer",
+      "training_approach": "bidirectional",
+      "applications": ["text_classification", "question_answering"],
+      "pretraining": ["masked_lm", "next_sentence_prediction"]
+    },
+    "tags": ["bert", "transformer", "nlp", "bidirectional"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175014",
+    "domain": "knowledge",
+    "title": "Cross Validation",
+    "description": "Technique for assessing model performance and generalization ability",
+    "raw_category_path": ["Machine Learning"],
+    "lang": "en",
+    "source": "methodology",
+    "specs": {
+      "difficulty": "intermediate",
+      "validation_method": "resampling",
+      "types": ["k_fold", "leave_one_out", "stratified"],
+      "purpose": "model_evaluation",
+      "prevents": "overfitting"
+    },
+    "tags": ["validation", "cross-validation", "model-evaluation", "generalization"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175015",
+    "domain": "knowledge",
+    "title": "R Programming Language",
+    "description": "Statistical programming language for data analysis and visualization",
+    "raw_category_path": ["Programming", "R"],
+    "lang": "en",
+    "source": "language_reference",
+    "specs": {
+      "difficulty": "intermediate",
+      "paradigm": "functional",
+      "strengths": ["statistics", "data_analysis", "visualization"],
+      "package_system": "CRAN",
+      "interactive": true
+    },
+    "tags": ["r", "programming", "statistics", "data-analysis"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175016",
+    "domain": "knowledge",
+    "title": "Eigenvalues and Eigenvectors",
+    "description": "Mathematical concepts fundamental to many machine learning algorithms",
+    "raw_category_path": ["Mathematics", "Linear Algebra"],
+    "lang": "en",
+    "source": "textbook",
+    "specs": {
+      "difficulty": "advanced",
+      "mathematical_concept": "linear_transformation",
+      "applications": ["PCA", "spectral_clustering", "PageRank"],
+      "computation": "characteristic_polynomial",
+      "geometric_interpretation": "scaling_and_rotation"
+    },
+    "tags": ["eigenvalue", "eigenvector", "linear-algebra", "transformation"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175017",
+    "domain": "knowledge",
+    "title": "Feature Engineering",
+    "description": "Process of selecting and transforming variables for machine learning models",
+    "raw_category_path": ["Machine Learning"],
+    "lang": "en",
+    "source": "best_practices",
+    "specs": {
+      "difficulty": "intermediate",
+      "process_type": "data_preprocessing",
+      "techniques": ["scaling", "encoding", "selection"],
+      "impact": "model_performance",
+      "domain_expertise": "required"
+    },
+    "tags": ["feature-engineering", "preprocessing", "transformation", "selection"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175018",
+    "domain": "knowledge",
+    "title": "Decision Tree Algorithm",
+    "description": "Tree-like model for making decisions based on feature values",
+    "raw_category_path": ["Machine Learning", "Supervised Learning", "Classification"],
+    "lang": "en",
+    "source": "algorithm_guide",
+    "specs": {
+      "difficulty": "beginner",
+      "model_type": "tree_based",
+      "splitting_criteria": ["gini", "entropy", "information_gain"],
+      "interpretable": true,
+      "prone_to": "overfitting"
+    },
+    "tags": ["decision-tree", "classification", "interpretable", "tree"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175019",
+    "domain": "knowledge",
+    "title": "Correlation Analysis",
+    "description": "Statistical technique to measure strength of relationship between variables",
+    "raw_category_path": ["Mathematics", "Statistics", "Descriptive Statistics"],
+    "lang": "en",
+    "source": "statistical_methods",
+    "specs": {
+      "difficulty": "beginner",
+      "analysis_type": "relationship",
+      "correlation_types": ["pearson", "spearman", "kendall"],
+      "range": [-1, 1],
+      "interpretation": "linear_relationship_strength"
+    },
+    "tags": ["correlation", "relationship", "pearson", "variables"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175020",
+    "domain": "knowledge",
+    "title": "Seaborn Visualization",
+    "description": "Statistical data visualization library built on matplotlib",
+    "raw_category_path": ["Data Visualization", "Statistical Charts"],
+    "lang": "en",
+    "source": "library_documentation",
+    "specs": {
+      "difficulty": "beginner",
+      "library": "seaborn",
+      "built_on": "matplotlib",
+      "specializes_in": "statistical_plots",
+      "default_styling": "attractive"
+    },
+    "tags": ["seaborn", "visualization", "statistical", "plotting"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175021",
+    "domain": "knowledge",
+    "title": "Logistic Regression",
+    "description": "Statistical method for binary and multiclass classification problems",
+    "raw_category_path": ["Machine Learning", "Supervised Learning", "Classification"],
+    "lang": "en",
+    "source": "statistics_textbook",
+    "specs": {
+      "difficulty": "intermediate",
+      "model_type": "linear",
+      "activation_function": "sigmoid",
+      "output": "probability",
+      "optimization": "maximum_likelihood"
+    },
+    "tags": ["logistic", "regression", "classification", "probability"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175022",
+    "domain": "knowledge",
+    "title": "Neural Network Backpropagation",
+    "description": "Algorithm for training neural networks by propagating errors backward",
+    "raw_category_path": ["Deep Learning", "Neural Networks"],
+    "lang": "en",
+    "source": "deep_learning_book",
+    "specs": {
+      "difficulty": "advanced",
+      "training_algorithm": "gradient_based",
+      "error_propagation": "backward",
+      "mathematical_basis": "chain_rule",
+      "updates": "weights_and_biases"
+    },
+    "tags": ["backpropagation", "neural-network", "training", "gradient"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175023",
+    "domain": "knowledge",
+    "title": "Time Series Analysis",
+    "description": "Statistical techniques for analyzing time-ordered data sequences",
+    "raw_category_path": ["Mathematics", "Statistics"],
+    "lang": "en",
+    "source": "time_series_textbook",
+    "specs": {
+      "difficulty": "advanced",
+      "data_type": "temporal",
+      "components": ["trend", "seasonality", "residuals"],
+      "methods": ["ARIMA", "exponential_smoothing"],
+      "forecasting": true
+    },
+    "tags": ["time-series", "temporal", "forecasting", "trend"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175024",
+    "domain": "knowledge",
+    "title": "Ensemble Methods",
+    "description": "Machine learning techniques that combine multiple models",
+    "raw_category_path": ["Machine Learning"],
+    "lang": "en",
+    "source": "ensemble_methods_guide",
+    "specs": {
+      "difficulty": "intermediate",
+      "approach": "model_combination",
+      "types": ["bagging", "boosting", "stacking"],
+      "advantages": ["reduced_variance", "improved_accuracy"],
+      "examples": ["random_forest", "gradient_boosting"]
+    },
+    "tags": ["ensemble", "bagging", "boosting", "combination"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175025",
+    "domain": "knowledge",
+    "title": "Data Preprocessing",
+    "description": "Techniques for cleaning and preparing data for analysis",
+    "raw_category_path": ["Machine Learning"],
+    "lang": "en",
+    "source": "data_science_workflow",
+    "specs": {
+      "difficulty": "beginner",
+      "process_stage": "preparation",
+      "techniques": ["cleaning", "normalization", "imputation"],
+      "importance": "critical",
+      "time_consuming": true
+    },
+    "tags": ["preprocessing", "cleaning", "preparation", "normalization"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175026",
+    "domain": "knowledge",
+    "title": "Confusion Matrix",
+    "description": "Table for evaluating classification model performance",
+    "raw_category_path": ["Machine Learning"],
+    "lang": "en",
+    "source": "evaluation_metrics",
+    "specs": {
+      "difficulty": "beginner",
+      "evaluation_tool": "classification",
+      "dimensions": "2x2_for_binary",
+      "metrics_derived": ["precision", "recall", "f1_score"],
+      "visualization": "heatmap"
+    },
+    "tags": ["confusion-matrix", "classification", "evaluation", "performance"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175027",
+    "domain": "knowledge",
+    "title": "Dimensionality Curse",
+    "description": "Phenomenon where high-dimensional spaces become sparse and difficult to analyze",
+    "raw_category_path": ["Machine Learning"],
+    "lang": "en",
+    "source": "machine_learning_theory",
+    "specs": {
+      "difficulty": "advanced",
+      "phenomenon": "high_dimensional_problem",
+      "effects": ["sparsity", "distance_meaningless"],
+      "solutions": ["dimensionality_reduction", "feature_selection"],
+      "manifold_hypothesis": true
+    },
+    "tags": ["curse-of-dimensionality", "high-dimensional", "sparsity", "distance"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175028",
+    "domain": "knowledge",
+    "title": "Bias-Variance Tradeoff",
+    "description": "Fundamental concept in machine learning about model complexity and generalization",
+    "raw_category_path": ["Machine Learning"],
+    "lang": "en",
+    "source": "statistical_learning_theory",
+    "specs": {
+      "difficulty": "intermediate",
+      "concept_type": "fundamental_tradeoff",
+      "components": ["bias", "variance", "noise"],
+      "relationship": "inverse",
+      "optimal_point": "minimum_total_error"
+    },
+    "tags": ["bias", "variance", "tradeoff", "generalization"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175029",
+    "domain": "knowledge",
+    "title": "ROC Curve Analysis",
+    "description": "Graphical plot for evaluating binary classification model performance",
+    "raw_category_path": ["Machine Learning"],
+    "lang": "en",
+    "source": "model_evaluation",
+    "specs": {
+      "difficulty": "intermediate",
+      "evaluation_method": "graphical",
+      "axes": ["true_positive_rate", "false_positive_rate"],
+      "area_under_curve": "AUC",
+      "perfect_classifier": "AUC_1.0"
+    },
+    "tags": ["roc", "auc", "classification", "evaluation"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175030",
+    "domain": "knowledge",
+    "title": "Regularization Techniques",
+    "description": "Methods to prevent overfitting by adding penalty terms to loss functions",
+    "raw_category_path": ["Machine Learning"],
+    "lang": "en",
+    "source": "regularization_methods",
+    "specs": {
+      "difficulty": "intermediate",
+      "purpose": "overfitting_prevention",
+      "types": ["L1_lasso", "L2_ridge", "elastic_net"],
+      "penalty": "complexity",
+      "hyperparameter": "lambda"
+    },
+    "tags": ["regularization", "overfitting", "lasso", "ridge"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175031",
+    "domain": "knowledge",
+    "title": "Clustering Validation",
+    "description": "Methods for evaluating the quality of clustering results",
+    "raw_category_path": ["Machine Learning", "Unsupervised Learning", "Clustering"],
+    "lang": "en",
+    "source": "clustering_evaluation",
+    "specs": {
+      "difficulty": "intermediate",
+      "evaluation_type": "unsupervised",
+      "internal_metrics": ["silhouette", "davies_bouldin"],
+      "external_metrics": ["adjusted_rand_index"],
+      "challenge": "no_ground_truth"
+    },
+    "tags": ["clustering", "validation", "silhouette", "evaluation"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175032",
+    "domain": "knowledge",
+    "title": "Bayes Theorem",
+    "description": "Fundamental theorem in probability theory for updating beliefs with new evidence",
+    "raw_category_path": ["Mathematics", "Statistics"],
+    "lang": "en",
+    "source": "probability_theory",
+    "specs": {
+      "difficulty": "intermediate",
+      "theorem_type": "conditional_probability",
+      "formula": "P(A|B) = P(B|A) * P(A) / P(B)",
+      "applications": ["naive_bayes", "bayesian_inference"],
+      "interpretation": "belief_updating"
+    },
+    "tags": ["bayes", "probability", "conditional", "inference"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175033",
+    "domain": "knowledge",
+    "title": "Feature Scaling",
+    "description": "Preprocessing technique to normalize feature ranges for better model performance",
+    "raw_category_path": ["Machine Learning"],
+    "lang": "en",
+    "source": "preprocessing_guide",
+    "specs": {
+      "difficulty": "beginner",
+      "preprocessing_step": "normalization",
+      "methods": ["standardization", "min_max_scaling", "robust_scaling"],
+      "importance": "distance_based_algorithms",
+      "preserves": "distribution_shape"
+    },
+    "tags": ["scaling", "normalization", "standardization", "preprocessing"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175034",
+    "domain": "knowledge",
+    "title": "Overfitting and Underfitting",
+    "description": "Common problems in machine learning related to model complexity",
+    "raw_category_path": ["Machine Learning"],
+    "lang": "en",
+    "source": "model_complexity",
+    "specs": {
+      "difficulty": "beginner",
+      "problem_type": "model_complexity",
+      "overfitting": "high_variance",
+      "underfitting": "high_bias",
+      "solutions": ["regularization", "cross_validation", "more_data"]
+    },
+    "tags": ["overfitting", "underfitting", "complexity", "generalization"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175035",
+    "domain": "knowledge",
+    "title": "Singular Value Decomposition",
+    "description": "Matrix factorization technique used in dimensionality reduction and data compression",
+    "raw_category_path": ["Mathematics", "Linear Algebra"],
+    "lang": "en",
+    "source": "linear_algebra_textbook",
+    "specs": {
+      "difficulty": "advanced",
+      "matrix_factorization": "A = U * Σ * V^T",
+      "applications": ["PCA", "recommender_systems", "image_compression"],
+      "computational_complexity": "O(mn^2)",
+      "numerical_stability": "high"
+    },
+    "tags": ["svd", "matrix", "factorization", "decomposition"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175036",
+    "domain": "knowledge",
+    "title": "LSTM Networks",
+    "description": "Type of recurrent neural network designed to handle long-term dependencies",
+    "raw_category_path": ["Deep Learning", "Neural Networks"],
+    "lang": "en",
+    "source": "deep_learning_paper",
+    "specs": {
+      "difficulty": "advanced",
+      "network_type": "recurrent",
+      "solves": "vanishing_gradient_problem",
+      "gates": ["forget", "input", "output"],
+      "applications": ["sequence_modeling", "time_series"]
+    },
+    "tags": ["lstm", "rnn", "sequence", "memory"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175037",
+    "domain": "knowledge",
+    "title": "Information Theory",
+    "description": "Mathematical framework for quantifying information content and transmission",
+    "raw_category_path": ["Mathematics"],
+    "lang": "en",
+    "source": "information_theory_book",
+    "specs": {
+      "difficulty": "advanced",
+      "theory_type": "mathematical_framework",
+      "key_concepts": ["entropy", "mutual_information", "KL_divergence"],
+      "applications": ["feature_selection", "decision_trees"],
+      "founder": "Claude_Shannon"
+    },
+    "tags": ["information", "entropy", "shannon", "communication"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175038",
+    "domain": "knowledge",
+    "title": "Monte Carlo Methods",
+    "description": "Computational algorithms that rely on repeated random sampling",
+    "raw_category_path": ["Mathematics", "Statistics"],
+    "lang": "en",
+    "source": "computational_statistics",
+    "specs": {
+      "difficulty": "advanced",
+      "method_type": "simulation",
+      "sampling": "random",
+      "applications": ["integration", "optimization", "bayesian_inference"],
+      "convergence": "law_of_large_numbers"
+    },
+    "tags": ["monte-carlo", "simulation", "sampling", "random"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175039",
+    "domain": "knowledge",
+    "title": "Transformer Architecture",
+    "description": "Neural network architecture based on self-attention mechanism",
+    "raw_category_path": ["Deep Learning", "Natural Language Processing"],
+    "lang": "en",
+    "source": "attention_paper",
+    "specs": {
+      "difficulty": "advanced",
+      "architecture_type": "attention_based",
+      "key_innovation": "self_attention",
+      "parallelizable": true,
+      "applications": ["machine_translation", "language_modeling"]
+    },
+    "tags": ["transformer", "attention", "nlp", "architecture"]
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175040",
+    "domain": "knowledge",
+    "title": "Reinforcement Learning",
+    "description": "Machine learning paradigm where agents learn through interaction with environment",
+    "raw_category_path": ["Machine Learning"],
+    "lang": "en",
+    "source": "reinforcement_learning_book",
+    "specs": {
+      "difficulty": "advanced",
+      "learning_paradigm": "trial_and_error",
+      "key_concepts": ["reward", "policy", "value_function"],
+      "algorithms": ["Q_learning", "policy_gradient"],
+      "applications": ["game_playing", "robotics"]
+    },
+    "tags": ["reinforcement", "learning", "agent", "reward"]
+  }
+]

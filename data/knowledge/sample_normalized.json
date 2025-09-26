@@ -1,0 +1,76 @@
+[
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175001",
+    "domain": "knowledge",
+    "category_id": "987fcdeb-51d2-4567-8901-123456780001",
+    "attrs": {
+      "difficulty": {
+        "value_id": "difficulty_intermediate_001",
+        "value": "intermediate"
+      },
+      "field": {
+        "value_id": "field_statistics_001",
+        "value": "statistics"
+      },
+      "concept_type": {
+        "value_id": "concept_theorem_001",
+        "value": "theorem"
+      },
+      "mathematical_basis": {
+        "value_id": null,
+        "value": "probability theory"
+      }
+    },
+    "evidence": {
+      "difficulty": {
+        "source_field": "specs.difficulty",
+        "score": 1.0
+      },
+      "field": {
+        "source_field": "specs.field",
+        "score": 1.0
+      }
+    },
+    "t_version": 1,
+    "n_version": 1,
+    "norm_version": 1,
+    "status": "ok"
+  },
+  {
+    "item_id": "456e7890-e89b-12d3-a456-426614175002",
+    "domain": "knowledge",
+    "category_id": "987fcdeb-51d2-4567-8901-123456780002",
+    "attrs": {
+      "difficulty": {
+        "value_id": "difficulty_intermediate_001",
+        "value": "intermediate"
+      },
+      "algorithm_type": {
+        "value_id": "algorithm_ensemble_001",
+        "value": "ensemble"
+      },
+      "interpretable": {
+        "value_id": null,
+        "value": false
+      },
+      "time_complexity": {
+        "value_id": null,
+        "value": "O(n log n)"
+      }
+    },
+    "evidence": {
+      "difficulty": {
+        "source_field": "specs.difficulty",
+        "score": 1.0
+      },
+      "algorithm_type": {
+        "source_field": "specs.algorithm_type",
+        "score": 0.98
+      }
+    },
+    "t_version": 1,
+    "n_version": 1,
+    "norm_version": 1,
+    "status": "ok"
+  }
+]
