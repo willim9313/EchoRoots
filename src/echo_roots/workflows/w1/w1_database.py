@@ -89,7 +89,7 @@ class W1DatabaseManager:
 
             # 執行初始化
             with self.neo4j_driver.session() as session:
-                session.run(Query(init_cypher))
+                session.run(init_cypher)
                 logger.info("Neo4j 初始化完成")
                 return True
         except PermissionError as e:
@@ -107,16 +107,16 @@ class W1DatabaseManager:
         except DatabaseInitializationError as e:
             logger.error("Neo4j 初始化失敗: %s", e)
             return False
-    
+
     def import_categories(self, categories: List[Category]) -> int:
         """匯入分類到 Neo4j"""
         if not categories:
             return 0
-        
+
         try:
             with self.neo4j_driver.session() as session:
                 imported_count = 0
-                
+
                 for category in categories:
                     # 建立分類節點
                     query = """
@@ -131,21 +131,22 @@ class W1DatabaseManager:
                         c.t_version = $t_version,
                         c.updated_at = datetime()
                     """
-                    
+
                     session.run(query, {
                         'category_id': str(category.category_id),
                         'domain': category.domain.value,
                         'name': category.name,
                         'labels': json.dumps(category.labels),
-                        'parent_id': str(category.parent_id) if category.parent_id else None,
+                        'parent_id': (str(category.parent_id) 
+                                    if category.parent_id else None),
                         'path': category.path,
                         'path_ids': [str(pid) for pid in category.path_ids],
                         'status': category.status.value,
                         't_version': category.t_version
                     })
-                    
+
                     imported_count += 1
-                
+
                 # 建立父子關係
                 for category in categories:
                     if category.parent_id:
@@ -154,28 +155,28 @@ class W1DatabaseManager:
                         MATCH (parent:Category {category_id: $parent_id})
                         MERGE (parent)-[:HAS_CHILD]->(child)
                         """
-                        
+
                         session.run(relationship_query, {
                             'child_id': str(category.category_id),
                             'parent_id': str(category.parent_id)
                         })
-                
-                logger.info(f"成功匯入 {imported_count} 個分類")
+
+                logger.info("成功匯入 %s 個分類", imported_count)
                 return imported_count
-                
+
         except Exception as e:
-            logger.error(f"分類匯入失敗: {e}")
+            logger.error("分類匯入失敗: %s", e)
             return 0
-    
+
     def import_attributes(self, attributes: List[Attribute]) -> int:
         """匯入屬性到 Neo4j"""
         if not attributes:
             return 0
-        
+
         try:
             with self.neo4j_driver.session() as session:
                 imported_count = 0
-                
+
                 for attribute in attributes:
                     # 建立屬性節點
                     query = """
@@ -191,7 +192,7 @@ class W1DatabaseManager:
                         a.n_version = $n_version,
                         a.updated_at = datetime()
                     """
-                    
+
                     session.run(query, {
                         'attr_id': str(attribute.attr_id),
                         'domain': attribute.domain.value,
@@ -204,16 +205,16 @@ class W1DatabaseManager:
                         'status': attribute.status.value,
                         'n_version': attribute.n_version
                     })
-                    
+
                     imported_count += 1
-                
-                logger.info(f"成功匯入 {imported_count} 個屬性")
+
+                logger.info("成功匯入 %s 個屬性", imported_count)
                 return imported_count
-                
+
         except Exception as e:
             logger.error("屬性匯入失敗: %s", e)
             return 0
-    
+
     def check_batch_processed(self, idempotency_key: str) -> bool:
         """檢查批次是否已處理過"""
         try:
@@ -222,13 +223,13 @@ class W1DatabaseManager:
                     "SELECT COUNT(*) FROM processed_batches WHERE idempotency_key = ?",
                     (idempotency_key,)
                 ).fetchone()
-                
+
                 return result[0] > 0 if result else False
-                
+
         except Exception as e:
             logger.error("檢查批次處理狀態失敗: %s", e)
             return False
-    
+
     def mark_batch_processed(self, idempotency_key: str) -> bool:
         """標記批次為已處理"""
         try:
@@ -238,11 +239,11 @@ class W1DatabaseManager:
                     (idempotency_key, datetime.now())
                 )
                 return True
-                
+
         except Exception as e:
             logger.error("標記批次處理狀態失敗: %s", e)
             return False
-    
+
     def create_neo4j_snapshot(self, snapshot_id: str) -> bool:
         """建立 Neo4j 快照"""
         try:
@@ -259,11 +260,11 @@ class W1DatabaseManager:
                 session.run(query, {'snapshot_id': snapshot_id})
                 logger.info("Neo4j 快照建立完成: %s", snapshot_id)
                 return True
-                
+
         except Exception as e:
             logger.error("Neo4j 快照建立失敗: %s", e)
             return False
-    
+
     def create_duckdb_snapshot(self, snapshot_id: str) -> bool:
         """建立 DuckDB 快照"""
         try:
@@ -313,7 +314,9 @@ class W1DatabaseManager:
             with self.neo4j_driver.session() as session:
                 # 檢查是否有根節點
                 root_check = session.run(
-                    "MATCH (c:Category) WHERE c.parent_id IS NULL RETURN count(c) as root_count"
+                    "MATCH (c:Category) "
+                    "WHERE c.parent_id IS NULL "
+                    "RETURN count(c) as root_count"
                 ).single()
 
                 if not root_check or root_check['root_count'] == 0:
@@ -321,7 +324,9 @@ class W1DatabaseManager:
 
                 # 檢查是否有完整的路徑結構
                 path_check = session.run(
-                    "MATCH (c:Category) WHERE size(c.path) > 0 RETURN count(c) as path_count"
+                    "MATCH (c:Category) "
+                    "WHERE size(c.path) > 0 "
+                    "RETURN count(c) as path_count"
                 ).single()
 
                 return path_check and path_check['path_count'] > 0
